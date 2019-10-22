@@ -17,13 +17,12 @@ public class CalcolaPunteggio : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Punteggio " + (10 - fallen.Count));
     }
 
     private void OnTriggerExit(Collider other)
     {
         fallen.Remove(other.gameObject);
-        Debug.Log(other.gameObject.name + " on trigger stay");
+        Debug.Log("Punteggio " + (10 - fallen.Count));
     }
 
     private void OnTriggerEnter(Collider other)
