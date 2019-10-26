@@ -6,6 +6,7 @@ public class BallTrigger : MonoBehaviour
 {
     public GameObject ball;
     public GameObject pinController;
+    public GameObject pulisciPista;
 
     //public List<int> throws;
     //public uint nThrows;
@@ -32,12 +33,12 @@ public class BallTrigger : MonoBehaviour
         //throws.Add(pinController.GetComponent<CalcolaPunteggio>().GetPoints());
 
         //attiva pulisci pista
-        GameObject.Find("PulisciPista")
-            .GetComponent<PulisciPistaController>().attivaPulisciPista = true;
+        pulisciPista.GetComponent<PulisciPistaController>().attiva( () => {
+             resetBall();
+             pinController.GetComponent<CalcolaPunteggio>().resetPositions();
+        });
 
-        resetBall();
-
-        pinController.GetComponent<CalcolaPunteggio>().resetPositions();
+       
 
         /*
         if (nThrows >= throws.Count)
