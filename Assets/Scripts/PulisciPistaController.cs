@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PulisciPistaController : MonoBehaviour
 {
-    public Animator anim;
+    private Animator anim;
     private callback cb;
 
     // Start is called before the first frame update
