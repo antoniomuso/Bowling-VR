@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class CalcolaPunteggio : MonoBehaviour
+public class PinController : MonoBehaviour
 {
-    public GameObject[] birilli;
+    public GameObject[] pins;
     private List<GameObject> notFallen;
-    int round;
-    int tiroCorrente;
-    int tiriTotali;
-    int[] punteggioTiro;
+
+
+
     public List<Vector3> startingPos;
     public List<Quaternion> startingRot;
 
@@ -18,26 +17,19 @@ public class CalcolaPunteggio : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        notFallen = new List<GameObject>(birilli);
-        foreach (GameObject pin in birilli) {
+        notFallen = new List<GameObject>(pins);
+        foreach (GameObject pin in pins) {
             startingPos.Add(pin.transform.position);
             startingRot.Add(pin.transform.rotation);
         }
         //initialize round and tiri
-        round = 1;
-        tiriTotali = 10;
-        tiroCorrente = 0;
-        punteggioTiro = new int[10];
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("Numero round: "+round+" di Tiro "+(tiroCorrente+1)+"\n"
-                +"Punteggio: "+(birilli.Length-notFallen.Count));
-        }
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -51,18 +43,25 @@ public class CalcolaPunteggio : MonoBehaviour
     }
 
     public int GetPoints(){
-        return birilli.Length - notFallen.Count;
+        return pins.Length - notFallen.Count;
+    }
+
+
+    public void upliftNotFallenPins(callback cb)
+    {
+        
     }
 
 
     public void resetPositions(){
-        for (int i = 0; i < birilli.Length; i++) {
-            birilli[i].transform.position = startingPos[i];
-            birilli[i].transform.rotation = startingRot[i];
-            birilli[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
-            birilli[i].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        for (int i = 0; i < pins.Length; i++) {
+            pins[i].transform.position = startingPos[i];
+            pins[i].transform.rotation = startingRot[i];
+            pins[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
+            pins[i].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
     }
+
     
 
     /*Nuovo

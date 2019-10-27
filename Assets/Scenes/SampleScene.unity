@@ -120,12 +120,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &5146127 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1925873320126184956, guid: 57188973d3a718048ac7c3a5f67b8ba5,
-    type: 3}
-  m_PrefabInstance: {fileID: 2138234700}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &98700259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -435,12 +429,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 480831803}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &610128013 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1925873320126184956, guid: 57188973d3a718048ac7c3a5f67b8ba5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1748504240}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &613349179
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +443,6 @@ GameObject:
   - component: {fileID: 613349182}
   - component: {fileID: 613349181}
   - component: {fileID: 613349180}
-  - component: {fileID: 613349186}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -564,24 +551,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &613349186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 613349179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 119562847fb56c44c8be1960efcafcf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &631192854 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1925873320126184956, guid: 57188973d3a718048ac7c3a5f67b8ba5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1916508652}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &632350666
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -657,30 +626,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 632350666}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &637498825 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1925873320126184956, guid: 57188973d3a718048ac7c3a5f67b8ba5,
-    type: 3}
-  m_PrefabInstance: {fileID: 480831803}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &668154058 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1925873320126184956, guid: 57188973d3a718048ac7c3a5f67b8ba5,
-    type: 3}
-  m_PrefabInstance: {fileID: 992284599}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &778849740 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1925873320126184956, guid: 57188973d3a718048ac7c3a5f67b8ba5,
-    type: 3}
-  m_PrefabInstance: {fileID: 98700259}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &846647752 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1925873320126184956, guid: 57188973d3a718048ac7c3a5f67b8ba5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1318277348}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &921486290
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,20 +690,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 921486290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8e4d3915f2a61544bb1e0faf13c08f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 035536d1390065a54a687af910b63a4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birilli:
-  - {fileID: 2096537756}
-  - {fileID: 637498825}
-  - {fileID: 846647752}
-  - {fileID: 631192854}
-  - {fileID: 1117543714}
-  - {fileID: 1456048818}
-  - {fileID: 778849740}
-  - {fileID: 610128013}
-  - {fileID: 668154058}
-  - {fileID: 5146127}
+  pins: []
   startingPos: []
   startingRot: []
 --- !u!1001 &937516989
@@ -1002,12 +937,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 613349179}
---- !u!1 &1117543714 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1925873320126184956, guid: 57188973d3a718048ac7c3a5f67b8ba5,
-    type: 3}
-  m_PrefabInstance: {fileID: 632350666}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1318277348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1082,12 +1011,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1925873320126184944, guid: 57188973d3a718048ac7c3a5f67b8ba5,
     type: 3}
   m_PrefabInstance: {fileID: 1318277348}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1456048818 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1925873320126184956, guid: 57188973d3a718048ac7c3a5f67b8ba5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1815012336}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1708863270
 PrefabInstance:
@@ -1502,6 +1425,7 @@ MonoBehaviour:
   ball: {fileID: 613349179}
   pinController: {fileID: 921486290}
   pulisciPista: {fileID: 1748882583}
+  numberOfRounds: 10
   startingPos: {x: 0, y: 1.5, z: -11.96}
   startingRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!95 &1917987359
@@ -1523,12 +1447,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &2096537756 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1925873320126184956, guid: 57188973d3a718048ac7c3a5f67b8ba5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1708863270}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2138234700
 PrefabInstance:
   m_ObjectHideFlags: 0

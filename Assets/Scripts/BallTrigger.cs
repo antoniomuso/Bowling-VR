@@ -8,8 +8,9 @@ public class BallTrigger : MonoBehaviour
     public GameObject pinController;
     public GameObject pulisciPista;
 
-    //public List<int> throws;
-    //public uint nThrows;
+    public int numberOfRounds;
+    int round;
+    private List<(int first, int second)> roundsPoints;
     
 
     //coordinates of the ball respawn
@@ -18,7 +19,11 @@ public class BallTrigger : MonoBehaviour
 
     // Start is called before the first frame update
     void Start(){
-        //startingPos = ball.transform.position;
+        round = 0;
+        roundsPoints = new List<(int first, int second)>();
+        for (int i = 0; i < numberOfRounds; i++) {
+            roundsPoints.Add((-1, -1));
+        }
     }
 
     // Update is called once per frame
@@ -26,24 +31,38 @@ public class BallTrigger : MonoBehaviour
         
     }
 
-    private IEnumerator waiter()
-    {
+    private IEnumerator waiter() {
         yield return new WaitForSeconds(2);
+        
+        int points = pinController.GetComponent<PinController>().GetPoints();
 
-        //throws.Add(pinController.GetComponent<CalcolaPunteggio>().GetPoints());
+        // If is the first throw 
+        Debug.Log("Number of Point: " + points);
+        if (roundsPoints[round].Equals((-1,-1))) {
+            Debug.Log("Primo");
+            roundsPoints[round] = (points, -1);
+
+        } else {
+            Debug.Log("Secondo");
+            roundsPoints[round] = (roundsPoints[round].first, points - roundsPoints[round].first);
+            if (round < numberOfRounds) round ++;
+        }
+
 
         //attiva pulisci pista
         pulisciPista.GetComponent<PulisciPistaController>().attiva( () => {
-             resetBall();
-             pinController.GetComponent<CalcolaPunteggio>().resetPositions();
+
+    
+            resetBall();
+            
+            pinController.GetComponent<PinController>().resetPositions();
+            Debug.Log(round);
         });
 
        
 
-        /*
-        if (nThrows >= throws.Count)
-            throw new System.Exception("Too much throws!");
-            */
+      
+      
     }
 
     private void OnTriggerEnter(Collider other) {
