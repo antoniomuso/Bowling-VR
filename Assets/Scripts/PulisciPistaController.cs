@@ -1,19 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
- public delegate void callback(); // declare delegate type
 
 
 public class PulisciPistaController : MonoBehaviour
 {
     private Animator anim;
-    private callback cb;
+    private Callback cb;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        anim = GetComponent<Animator> ();
-        
+    void Start(){
+        anim = GetComponent<Animator> (); 
         
         //this.GetComponent<Renderer>().enabled = false;
     }
@@ -24,7 +21,7 @@ public class PulisciPistaController : MonoBehaviour
 
     }
 
-    public void attiva(callback cb)
+    public void attiva(Callback cb)
     {
         //this.GetComponent<Renderer>().enabled = true;
         Debug.Log("Pulizia pista in corso...");

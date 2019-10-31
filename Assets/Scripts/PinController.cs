@@ -8,8 +8,6 @@ public class PinController : MonoBehaviour
     public GameObject[] pins;
     private List<GameObject> notFallen;
 
-
-
     public List<Vector3> startingPos;
     public List<Quaternion> startingRot;
 
@@ -23,7 +21,6 @@ public class PinController : MonoBehaviour
             startingRot.Add(pin.transform.rotation);
         }
         //initialize round and tiri
-
     }
 
     // Update is called once per frame
@@ -47,13 +44,13 @@ public class PinController : MonoBehaviour
     }
 
 
-    public void upliftNotFallenPins(callback cb)
+    public void upliftNotFallenPins(Callback cb)
     {
         
     }
 
 
-    public void resetPositions(){
+    public void resetPositions() {
         for (int i = 0; i < pins.Length; i++) {
             pins[i].transform.position = startingPos[i];
             pins[i].transform.rotation = startingRot[i];

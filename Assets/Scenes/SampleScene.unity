@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641252, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -455,6 +455,7 @@ GameObject:
   - component: {fileID: 613349182}
   - component: {fileID: 613349181}
   - component: {fileID: 613349180}
+  - component: {fileID: 613349186}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -563,6 +564,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &613349186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613349179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67361a2a59dc10145ad6484d0adffe99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingPos: {x: 0, y: 0, z: 0}
+  startingRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &631192854 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1925873320126184956, guid: 57188973d3a718048ac7c3a5f67b8ba5,
@@ -1438,8 +1453,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1917987357}
   - component: {fileID: 1917987356}
-  - component: {fileID: 1917987358}
   - component: {fileID: 1917987359}
+  - component: {fileID: 1917987358}
   m_Layer: 0
   m_Name: BallTrigger
   m_TagString: Untagged
@@ -1483,15 +1498,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1917987355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c75742b4177e974b81e6a21954164fc, type: 3}
+  m_Script: {fileID: 11500000, guid: dc8ff688e8c34ce4d8bd81254293e765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 613349179}
   pinController: {fileID: 921486290}
   pulisciPista: {fileID: 1748882583}
-  numberOfRounds: 10
-  startingPos: {x: 0, y: 1.5, z: -11.96}
-  startingRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!95 &1917987359
 Animator:
   serializedVersion: 3

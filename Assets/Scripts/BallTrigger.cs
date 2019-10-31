@@ -13,9 +13,6 @@ public class BallTrigger : MonoBehaviour
     private List<(int first, int second)> roundsPoints;
     
 
-    //coordinates of the ball respawn
-    public Vector3 startingPos;
-    public Quaternion startingRot;
 
     // Start is called before the first frame update
     void Start(){
@@ -52,7 +49,6 @@ public class BallTrigger : MonoBehaviour
         //attiva pulisci pista
         pulisciPista.GetComponent<PulisciPistaController>().attiva( () => {
 
-    
             resetBall();
             
             pinController.GetComponent<PinController>().resetPositions();
@@ -74,8 +70,6 @@ public class BallTrigger : MonoBehaviour
     public void resetBall() {
         ball.GetComponent<ConstantForce>().enabled = false;
         ball.GetComponent<Rigidbody>().useGravity = false;
-        ball.transform.position = startingPos;
-        ball.transform.rotation = startingRot;
         ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
         ball.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
     }
