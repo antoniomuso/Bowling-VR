@@ -13,8 +13,7 @@ public class StrokeManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        StartThrow(true, (int score) =>
-        {
+        StartThrow(true, true, (int score) => {
             Debug.Log("StrokeManager score: " + score);
         });
     }
@@ -55,9 +54,13 @@ public class StrokeManager : MonoBehaviour
         ball.GetComponent<State>().resetObject();
     }
 
-    public void StartThrow(bool cleanAll, IntCallback cb) {
+    public void StartThrow(bool reset, bool cleanAll, IntCallback cb) {
         this.cb = cb;
         this.cleanAll = cleanAll;
+
         //SETUP DEL TIRO
+        if (reset){
+            //ANIMAZIONE SET UP DEL TIRO
+        }
     }
 }
