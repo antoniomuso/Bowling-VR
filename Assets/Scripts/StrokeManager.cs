@@ -34,7 +34,7 @@ public class StrokeManager : MonoBehaviour
 
             resetBall();
             pinController.GetComponent<PinController>().resetPositions();
-            cb(points);
+            //cb(points);
         });
 
         //ANIMAZIONE CHE ABBASSA I BIRILLI

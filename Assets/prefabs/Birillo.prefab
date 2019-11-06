@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1925873320126184946}
   - component: {fileID: 1925873320126184945}
   - component: {fileID: 3202416295272363491}
+  - component: {fileID: 2641780942286622365}
   m_Layer: 0
   m_Name: Birillo
   m_TagString: Untagged
@@ -111,3 +112,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 6849795856638667086, guid: 0d62bec869eb1484396c80c96fa9b02c, type: 3}
+--- !u!114 &2641780942286622365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925873320126184956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67361a2a59dc10145ad6484d0adffe99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingPos: {x: 0, y: 0, z: 0}
+  startingRot: {x: 0, y: 0, z: 0, w: 0}
