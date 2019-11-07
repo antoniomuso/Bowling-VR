@@ -33,11 +33,7 @@ public class StrokeManager : MonoBehaviour
 
             resetBall();
             pinController.GetComponent<PinController>().resetPositions();
-            Debug.Log(points);
             cb(points);
-            Debug.Log("Ciao" + points);
-
-
         });
 
         //ANIMAZIONE CHE ABBASSA I BIRILLI
@@ -52,7 +48,6 @@ public class StrokeManager : MonoBehaviour
 
     public void resetBall()
     {
-        ball.GetComponent<Rigidbody>().useGravity = false;
         ball.GetComponent<State>().resetObject();
     }
 
@@ -67,7 +62,6 @@ public class StrokeManager : MonoBehaviour
             //ANIMAZIONE SET UP DEL TIRO
         }
 
-        Debug.Log("PRIMA DEL RETURN");
         return task.Task;
     }
 }

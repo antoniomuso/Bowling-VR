@@ -22,15 +22,11 @@ public class FrameManager : MonoBehaviour
 
     public async Task<List<int>> RunFrame(bool isLastFrame)
     {
-        Debug.Log("Prima prima chiamata");
         List<int> scores = new List<int>();
         int PinNumber = pinController.GetComponent<PinController>().pins.Length;
-        Debug.Log("Prima prima chiamata");
 
         if (!isLastFrame) {
-            Debug.Log("Prima chiamata");
             int score = await strokeManager.GetComponent<StrokeManager>().StartThrow(true, false);
-            Debug.Log("SCORE: " + score);
             scores.Add(score);
             if (score == PinNumber)
                 return scores;
@@ -67,7 +63,8 @@ public class FrameManager : MonoBehaviour
                 }
             }
         }
-
+        Debug.Log("Ritornando i risultati");
+        foreach (int i in scores) Debug.Log(i);
         return scores;
     }
 }

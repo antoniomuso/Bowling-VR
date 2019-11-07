@@ -36,11 +36,9 @@ public class BallTrigger : MonoBehaviour
         // If is the first throw 
         Debug.Log("Number of Point: " + points);
         if (roundsPoints[round].Equals((-1,-1))) {
-            Debug.Log("Primo");
             roundsPoints[round] = (points, -1);
 
         } else {
-            Debug.Log("Secondo");
             roundsPoints[round] = (roundsPoints[round].first, points - roundsPoints[round].first);
             if (round < numberOfRounds) round ++;
         }

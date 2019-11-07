@@ -32,8 +32,9 @@ public class GameManager : MonoBehaviour {
             for (int p = 0; p < playersNumber; p++)
             {
                 Debug.Log("Player: " + p);
-                gameScores[f][p] = await frameManager.GetComponent<FrameManager>().RunFrame(f == totalFrames);
-                Debug.Log("DOPO" + f + " " + p + " -> ");
+                List<int> score = await frameManager.GetComponent<FrameManager>().RunFrame(f == totalFrames);
+                Debug.Log("Frame: " + f + " Player: " + p + " -> " );
+                foreach (int i in score) Debug.Log(i);
 
             }
         }
