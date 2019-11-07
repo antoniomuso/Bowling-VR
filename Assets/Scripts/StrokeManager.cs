@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class StrokeManager : MonoBehaviour
 {
@@ -13,9 +14,7 @@ public class StrokeManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        StartThrow(true, true, (int score) => {
-            Debug.Log("StrokeManager score: " + score);
-        });
+
     }
 
     // Update is called once per frame
@@ -34,7 +33,11 @@ public class StrokeManager : MonoBehaviour
 
             resetBall();
             pinController.GetComponent<PinController>().resetPositions();
-            //cb(points);
+            Debug.Log(points);
+            cb(points);
+            Debug.Log("Ciao" + points);
+
+
         });
 
         //ANIMAZIONE CHE ABBASSA I BIRILLI
@@ -49,18 +52,22 @@ public class StrokeManager : MonoBehaviour
 
     public void resetBall()
     {
-        ball.GetComponent<ConstantForce>().enabled = false;
         ball.GetComponent<Rigidbody>().useGravity = false;
         ball.GetComponent<State>().resetObject();
     }
 
-    public void StartThrow(bool reset, bool cleanAll, IntCallback cb) {
-        this.cb = cb;
+    public Task<int> StartThrow(bool reset, bool cleanAll) { 
+        TaskCompletionSource<int> task = new TaskCompletionSource<int>();
+        this.cb = (int score) => task.TrySetResult(score); 
         this.cleanAll = cleanAll;
+
 
         //SETUP DEL TIRO
         if (reset){
             //ANIMAZIONE SET UP DEL TIRO
         }
+
+        Debug.Log("PRIMA DEL RETURN");
+        return task.Task;
     }
 }

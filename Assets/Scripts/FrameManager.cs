@@ -1,16 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 
 public class FrameManager : MonoBehaviour
 {
     public GameObject pinController;
     public GameObject strokeManager;
-
-
-    private ListIntCallback cb;
-    private bool isLastFrame;
 
     //La fotocamera è una merda
 
@@ -23,62 +20,54 @@ public class FrameManager : MonoBehaviour
     }
 
 
-    public void RunFrame(bool isLastFrame, ListIntCallback cb)
+    public async Task<List<int>> RunFrame(bool isLastFrame)
     {
+        Debug.Log("Prima prima chiamata");
         List<int> scores = new List<int>();
         int PinNumber = pinController.GetComponent<PinController>().pins.Length;
+        Debug.Log("Prima prima chiamata");
 
         if (!isLastFrame) {
-            strokeManager.GetComponent<StrokeManager>().StartThrow(true, false, (int FirstScore) =>
-            {
-                scores.Add(FirstScore);
-                if (FirstScore == PinNumber){
-                    cb(scores);
-                    return;
-                }
+            Debug.Log("Prima chiamata");
+            int score = await strokeManager.GetComponent<StrokeManager>().StartThrow(true, false);
+            Debug.Log("SCORE: " + score);
+            scores.Add(score);
+            if (score == PinNumber)
+                return scores;
+
+            //SECONDO TIRO
+            score = await strokeManager.GetComponent<StrokeManager>().StartThrow(false, true);
+            scores.Add(score);
+
+        } else {
+            int score = await strokeManager.GetComponent<StrokeManager>().StartThrow(true, false);
+            scores.Add(score);
+            if (score == PinNumber) {
 
                 //SECONDO TIRO
-                strokeManager.GetComponent<StrokeManager>().StartThrow(false, true, (int SecondScore) =>{
-                    scores.Add(SecondScore);
-                    cb(scores);
-                });
-            });
-        } else {
-            strokeManager.GetComponent<StrokeManager>().StartThrow(true, false, (int FirstScore) => {
-                scores.Add(FirstScore);
-                if (FirstScore == PinNumber) {
-                    cb(scores);
+                score = await strokeManager.GetComponent<StrokeManager>().StartThrow(true, false);
+                scores.Add(score);
 
-                    //SECONDO TIRO
-                    strokeManager.GetComponent<StrokeManager>().StartThrow(true, false, (int SecondScore) =>{
-                        scores.Add(SecondScore);
-                        cb(scores);
+                bool reset = (score == PinNumber);
 
-                        bool reset = (SecondScore == PinNumber);
+                //TERZO TIRO
+                score = await strokeManager.GetComponent<StrokeManager>().StartThrow(reset, true);
+                scores.Add(score);
 
-                        //TERZO TIRO
-                        strokeManager.GetComponent<StrokeManager>().StartThrow(reset, true, (int ThirdScore) => {
-                            scores.Add(ThirdScore);
-                            cb(scores);
-                        });
-                    });
-                } else {
-                    //SECONDO TIRO
-                    strokeManager.GetComponent<StrokeManager>().StartThrow(false, true, (int SecondScore) => {
-                        scores.Add(SecondScore);
-                        cb(scores);
+            } else {
+                //SECONDO TIRO
+                int secondScore = await strokeManager.GetComponent<StrokeManager>().StartThrow(false, true);
+                scores.Add(secondScore);
 
-                        int TotalScore = FirstScore + SecondScore;
-                        if (TotalScore == PinNumber) {
-                            //TERZO TIRO
-                            strokeManager.GetComponent<StrokeManager>().StartThrow(true, true, (int ThirdScore) => {
-                                scores.Add(ThirdScore);
-                                cb(scores);
-                            });
-                        }
-                    });
+                int TotalScore = score + secondScore;
+                if (TotalScore == PinNumber) {
+                    //TERZO TIRO
+                    score = await strokeManager.GetComponent<StrokeManager>().StartThrow(true, true);
+                    scores.Add(score);
                 }
-            });
+            }
         }
+
+        return scores;
     }
 }

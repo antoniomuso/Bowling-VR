@@ -33,8 +33,8 @@ public class Controller : MonoBehaviour
 
     void launchBall()
     {
-        ball.GetComponent<ConstantForce>().enabled = true;
-        ball.GetComponent<Rigidbody>().useGravity = true;
+        //ball.GetComponent<ConstantForce>().enabled = true;
+        //ball.GetComponent<Rigidbody>().useGravity = true;
     }
 
 }
