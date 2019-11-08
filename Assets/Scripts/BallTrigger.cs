@@ -45,7 +45,7 @@ public class BallTrigger : MonoBehaviour
 
 
         //attiva pulisci pista
-        pulisciPista.GetComponent<PulisciPistaController>().attiva( () => {
+        pulisciPista.GetComponent<PulisciPistaController>().attiva(() => {
 
             resetBall();
             

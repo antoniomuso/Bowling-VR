@@ -8,17 +8,18 @@ public class PinController : MonoBehaviour
     public GameObject[] pins;
     private List<GameObject> notFallen;
 
-    public List<Vector3> startingPos;
-    public List<Quaternion> startingRot;
-
 
     // Start is called before the first frame update
     void Start()
     {
-        notFallen = new List<GameObject>(pins);
-        foreach (GameObject pin in pins) {
-            startingPos.Add(pin.transform.position);
-            startingRot.Add(pin.transform.rotation);
+        resetNotFallen();
+
+        foreach (var pin in pins) {
+            var anim = pin.GetComponent<Animation>();
+            
+            foreach (AnimationState state in anim) {
+                state.speed = 0.3F;
+            }
         }
         //initialize round and tiri
     }
@@ -44,19 +45,28 @@ public class PinController : MonoBehaviour
     }
 
 
-    public void upliftNotFallenPins(Callback cb)
+    public void upliftNotFallenPins()
     {
-        
+        foreach (var pin in notFallen) {
+            pin.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            pin.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            pin.GetComponent<Animation>().Play();
+            
+        } 
+
     }
 
+    private void resetNotFallen() {
+        notFallen = new List<GameObject>(pins);
+    }
 
     public void resetPositions() {
         for (int i = 0; i < pins.Length; i++) {
-            pins[i].transform.position = startingPos[i];
-            pins[i].transform.rotation = startingRot[i];
+            pins[i].GetComponent<State>().resetObject();
             pins[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
             pins[i].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
+        resetNotFallen();
     }
 
     
