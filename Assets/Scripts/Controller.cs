@@ -5,7 +5,8 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     public GameObject ball;
-    bool launched;
+    public float speed = 0;
+    public bool launched;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +34,9 @@ public class Controller : MonoBehaviour
 
     void launchBall()
     {
-        //ball.GetComponent<ConstantForce>().enabled = true;
-        //ball.GetComponent<Rigidbody>().useGravity = true;
+        Rigidbody rb = ball.GetComponent<Rigidbody>();
+        rb.AddForce(Vector3.forward * speed);
+        rb.useGravity = true;
     }
 
 }

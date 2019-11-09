@@ -7,6 +7,8 @@ public class BallTrigger : MonoBehaviour
     public GameObject ball;
     public GameObject pinController;
     public GameObject pulisciPista;
+    public Controller ControllerManager;
+    public int waiterSeconds = 2;
 
     public int numberOfRounds;
     int round;
@@ -29,7 +31,7 @@ public class BallTrigger : MonoBehaviour
     }
 
     private IEnumerator waiter() {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(waiterSeconds);
         
         int points = pinController.GetComponent<PinController>().GetPoints();
 
@@ -66,6 +68,7 @@ public class BallTrigger : MonoBehaviour
     }
 
     public void resetBall() {
+        ControllerManager.launched = true;
         ball.GetComponent<ConstantForce>().enabled = false;
         ball.GetComponent<Rigidbody>().useGravity = false;
         ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
