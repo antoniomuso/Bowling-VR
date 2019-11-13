@@ -31,10 +31,11 @@ public class StrokeManager : MonoBehaviour
         //attiva pulisci pista
         if (!cleanAll) pinController.GetComponent<PinController>().upliftNotFallenPins();
         pulisciPista.GetComponent<PulisciPistaController>().attiva(() => {
-
+            Debug.Log("Chiamata alla callback");
             resetBall();
-            if (cleanAll) pinController.GetComponent<PinController>().resetPositions();
-
+            if (cleanAll) {
+                pinController.GetComponent<PinController>().resetPositions();
+            }
             cb(points);
         });
 
@@ -62,6 +63,7 @@ public class StrokeManager : MonoBehaviour
         //SETUP DEL TIRO
         if (reset){
             //ANIMAZIONE SET UP DEL TIRO
+            
         }
 
         return task.Task;

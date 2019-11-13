@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class State : MonoBehaviour
 {
-    public Vector3 startingPos;
-    public Quaternion startingRot;
+    private Vector3 startingPos;
+    private Quaternion startingRot;
 
     // Start is called before the first frame update
     void Start() {

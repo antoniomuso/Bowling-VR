@@ -31,6 +31,7 @@ public class PulisciPistaController : MonoBehaviour
     }
 
     void AnimationEnded (string message) {  
+        Debug.Log("messaggio: " +  message);
         if (message.Equals("AnimEnded")) {
             anim.SetBool("isActive", false);
             cb();
