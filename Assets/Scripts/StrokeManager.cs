@@ -23,13 +23,16 @@ public class StrokeManager : MonoBehaviour
 
     private IEnumerator waiter()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         int points = pinController.GetComponent<PinController>().GetPoints();
 
         //ANIMAZIONE CHE ALZA I BIRILLI
 
         //attiva pulisci pista
-        if (!cleanAll) pinController.GetComponent<PinController>().upliftNotFallenPins();
+        if (!cleanAll) {
+            pinController.GetComponent<PinController>().upliftNotFallenPins();
+        }
+
         pulisciPista.GetComponent<PulisciPistaController>().attiva(() => {
             Debug.Log("Chiamata alla callback");
             resetBall();

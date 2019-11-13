@@ -50,6 +50,8 @@ public class PinController : MonoBehaviour
         foreach (var pin in notFallen) {
             pin.GetComponent<Rigidbody>().velocity = Vector3.zero;
             pin.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            pin.transform.position = Vector3.zero;
+            pin.transform.rotation = Quaternion.identity;
             pin.GetComponent<Animation>().Play();
             
         } 
@@ -68,7 +70,6 @@ public class PinController : MonoBehaviour
         }
         resetNotFallen();
     }
-
     
 
     /*Nuovo
