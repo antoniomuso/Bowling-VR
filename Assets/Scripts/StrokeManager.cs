@@ -33,9 +33,7 @@ public class StrokeManager : MonoBehaviour
         pulisciPista.GetComponent<PulisciPistaController>().attiva(() => {
             Debug.Log("Chiamata alla callback");
             resetBall();
-            if (cleanAll) {
-                pinController.GetComponent<PinController>().resetPositions();
-            }
+
             cb(points);
         });
 
@@ -62,7 +60,8 @@ public class StrokeManager : MonoBehaviour
 
         //SETUP DEL TIRO
         if (reset){
-            //ANIMAZIONE SET UP DEL TIRO
+            Debug.Log("RESET BIRILLI !!");
+            pinController.GetComponent<PinController>().resetPositions();
             
         }
 

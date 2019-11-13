@@ -27,12 +27,16 @@ public class FrameManager : MonoBehaviour
 
         if (!isLastFrame) {
             int score = await strokeManager.GetComponent<StrokeManager>().StartThrow(true, false);
+            Debug.Log("Punti: " + score);
             scores.Add(score);
-            if (score == PinNumber)
+            if (score == PinNumber) {
+                Debug.Log("Strike;");
                 return scores;
+            }
 
             //SECONDO TIRO
             score = await strokeManager.GetComponent<StrokeManager>().StartThrow(false, true);
+            Debug.Log("Punti: " + score);
             scores.Add(score);
 
         } else {

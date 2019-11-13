@@ -27,7 +27,6 @@ public class PulisciPistaController : MonoBehaviour
         Debug.Log("Pulizia pista in corso...");
         anim.SetBool("isActive", true);
         this.cb = cb;
-        
     }
 
     void AnimationEnded (string message) {  
