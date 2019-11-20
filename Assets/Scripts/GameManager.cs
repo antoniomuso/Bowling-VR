@@ -19,13 +19,10 @@ public class GameManager : MonoBehaviour {
         gameScores = new List<List<List<int>>>();
         for (int i = 0; i < playersNumber; i++)
             gameScores.Add(new List<List<int>>());
-
-        Debug.Log("PANICO");
         StartGame();
     }
 
     private async void StartGame() {
-        Debug.Log("DOPO PANICO");
         for (int f = 0; f < totalFrames; f++)
         {
             Debug.Log("Frame: " + f);
@@ -35,7 +32,6 @@ public class GameManager : MonoBehaviour {
                 List<int> score = await frameManager.GetComponent<FrameManager>().RunFrame(f == totalFrames);
                 Debug.Log("Frame: " + f + " Player: " + p + " -> " );
                 foreach (int i in score) Debug.Log(i);
-
             }
         }
     }
