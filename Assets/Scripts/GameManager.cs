@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
     private List<List<List<int>>> gameScores;
 
     // Start is called before the first frame update
-    void Start() {
+    void Start() {  
         gameScores = new List<List<List<int>>>();
         for (int i = 0; i < playersNumber; i++)
             gameScores.Add(new List<List<int>>());
