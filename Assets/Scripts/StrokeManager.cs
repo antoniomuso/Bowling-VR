@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 public class StrokeManager : MonoBehaviour
 {
-    public GameObject ball;
+    private GameObject ball;
     public GameObject pinController;
     public GameObject pulisciPista;
 
@@ -45,7 +45,8 @@ public class StrokeManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.Equals(ball)) {
+        if (other.gameObject.tag == "Ball") {
+            ball = other.gameObject;
             StartCoroutine(waiter());
         }
     }
