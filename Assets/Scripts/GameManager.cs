@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour {
 
     private async void StartGame() {
         ScoresUI.instance.SetNumberOfPlayers(playersNumber);
-        int sum = 0
+        int sum = 0;
 
         for (int f = 0; f < totalFrames; f++)
         {
