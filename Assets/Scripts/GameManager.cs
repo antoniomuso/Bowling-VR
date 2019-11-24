@@ -10,6 +10,7 @@ public delegate void ListIntCallback(List<int> number);
 
 public class GameManager : MonoBehaviour {
     public GameObject frameManager;
+
     public int playersNumber;
     public int totalFrames;
     private List<List<List<int>>> gameScores;
@@ -23,15 +24,19 @@ public class GameManager : MonoBehaviour {
     }
 
     private async void StartGame() {
+        ScoresUI.instance.SetNumberOfPlayers(playersNumber);
+        int sum = 0
+
         for (int f = 0; f < totalFrames; f++)
         {
             Debug.Log("Frame: " + f);
             for (int p = 0; p < playersNumber; p++)
             {
                 Debug.Log("Player: " + p);
-                List<int> score = await frameManager.GetComponent<FrameManager>().RunFrame(f == totalFrames);
+                List<int> score = await frameManager.GetComponent<FrameManager>().RunFrame(f == totalFrames, p, f);
                 Debug.Log("Frame: " + f + " Player: " + p + " -> " );
-                foreach (int i in score) Debug.Log(i);
+                
+                
             }
         }
     }

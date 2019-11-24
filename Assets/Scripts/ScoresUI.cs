@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ScoresUI : MonoBehaviour
 {
@@ -30,20 +31,30 @@ public class ScoresUI : MonoBehaviour
     public Dictionary<int, Dictionary<int, Text[]>> score;
 
     // Start is called before the first frame update
-
+#region Singleton
+private static ScoresUI _instance;
+public static ScoresUI instance => _instance;
     private void Awake()
     {
         SetFrameColors();
+        if (_instance != null) {
+            Destroy(gameObject);
+        } else {
+            _instance = this;
+        }
     }
+
+#endregion
+
 
     void Start()
     {
         InitializeScore();
         SwitchOnFrame(currentFrame);
         ResetScore();
-        SetNumberOfPlayers();
-        SetName(0, PlayerName1);
-        SetName(1, PlayerName2);
+        //SetNumberOfPlayers(1);
+        //SetName(0, PlayerName1);
+        //SetName(1, PlayerName2);
     }
     
     public void SwitchOnFrame(int indexFrame)
@@ -57,7 +68,6 @@ public class ScoresUI : MonoBehaviour
         IndicesBackFrame[indexFrame].color = c_OffBackFrame;
         IndicesBackFrame[indexFrame].GetComponentInChildren<Text>().color = c_OffNumberFrame;
     }
-
 
     /*
      * Method used to retrieve the Image references of the frames of a player
@@ -192,10 +202,13 @@ public class ScoresUI : MonoBehaviour
      * Method used to deactivate the display ( name + score)  of player2 when
      * the modality chosen is single player.
      * */
-    public void SetNumberOfPlayers()
+    public void SetNumberOfPlayers(int numberOfPlayers)
     {
-        if (Players.Length == 1)
-            GameObject.Find("Player2").SetActive(false);
+        if (numberOfPlayers > Players.Length || numberOfPlayers <= 0) throw new Exception("Max number of players is " + Players.Length);
+
+        for (int i = numberOfPlayers; i < Players.Length; i++) {
+            Players[i].SetActive(false);
+        }
     }
 
     /**

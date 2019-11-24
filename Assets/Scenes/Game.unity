@@ -1947,6 +1947,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1708863270}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1736487862 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4269968728502182209, guid: d2a67f7c9dbceb24bb7be99c07714d26,
+    type: 3}
+  m_PrefabInstance: {fileID: 1964718025}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1747974290
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,6 +2179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frameManager: {fileID: 1961144295}
+  monitor: {fileID: 1736487862}
   playersNumber: 1
   totalFrames: 5
 --- !u!4 &1899285866
@@ -4879,6 +4886,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6758109620555125553, guid: d2a67f7c9dbceb24bb7be99c07714d26,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265597047949879288, guid: d2a67f7c9dbceb24bb7be99c07714d26,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2a67f7c9dbceb24bb7be99c07714d26, type: 3}
