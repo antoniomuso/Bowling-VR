@@ -11,7 +11,7 @@ public class PulisciPistaController : MonoBehaviour
     // Start is called before the first frame update
     void Start(){
         anim = GetComponent<Animator> (); 
-        
+        this.cb = () => {};
         //this.GetComponent<Renderer>().enabled = false;
     }
 
@@ -25,15 +25,15 @@ public class PulisciPistaController : MonoBehaviour
     {
         //this.GetComponent<Renderer>().enabled = true;
         Debug.Log("Pulizia pista in corso...");
-        anim.SetBool("isActive", true);
         this.cb = cb;
+        anim.SetBool("isActive", true);
     }
 
     void AnimationEnded (string message) {  
         Debug.Log("messaggio: " +  message);
         if (message.Equals("AnimEnded")) {
             anim.SetBool("isActive", false);
-            cb();
+            this.cb();
         }
     }
 

@@ -46,14 +46,18 @@ public class StrokeManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Ball") {
-            ball = other.gameObject;
+            this.ball = other.gameObject;
             StartCoroutine(waiter());
         }
     }
 
+    public GameObject getBall() {
+        return this.ball;
+    }
+
     public void resetBall()
     {
-        ball.GetComponent<State>().resetObject();
+        getBall().GetComponent<State>().resetObject();
     }
 
     public Task<int> StartThrow(bool reset, bool cleanAll) { 
