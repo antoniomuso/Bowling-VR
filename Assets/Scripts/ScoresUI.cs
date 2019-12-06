@@ -170,14 +170,15 @@ public static ScoresUI instance => _instance;
                 //otherwise 2 + 1 partialScore
                 if (f == totFrames - 1)
                 {
-                    for (int s = 0; s < 4; s++)
+                    for (int s = 0; s < 3; s++)
                         SetScore(p, f, s, "");
                 }
                 else
                 {
-                    for (int s = 0; s < 3; s++)
+                    for (int s = 0; s < 2; s++)
                         SetScore(p, f, s, "");
                 }
+                setParzialScore(p,f,"");
             }
 
             //reset also the tot score
@@ -195,7 +196,16 @@ public static ScoresUI instance => _instance;
      * */
     public void SetScore(int indexPlayer, int IndexFrame, int partOfFrame, string score)
     {
+        if ( this.score[indexPlayer][IndexFrame].Length-1 == partOfFrame) {
+            throw new Exception();
+        }
+
         this.score[indexPlayer][IndexFrame][partOfFrame].text = score;
+    }
+
+    public void setParzialScore (int indexPlayer, int IndexFrame, string score) {
+        int len = this.score[indexPlayer][IndexFrame].Length;
+        this.score[indexPlayer][IndexFrame][len-1].text = score;
     }
 
     /*
