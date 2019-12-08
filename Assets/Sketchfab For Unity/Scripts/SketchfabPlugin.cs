@@ -4,151 +4,212 @@
  */
 #if UNITY_EDITOR
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.Networking;
+using SimpleJSON;
 
 // Static data and assets related to the plugin
-public class SketchfabPlugin
+namespace Sketchfab
 {
-	public static string VERSION = "0.0.85a";
-
-	public struct Urls
+	public class SketchfabPlugin : MonoBehaviour
 	{
-		public static string server = "https://sketchfab.com/";
-		public static string latestRelease = "https://github.com/sketchfab/UnityGLTF/releases/latest";
-		public static string resetPassword = "https://sketchfab.com/login/reset-password";
-		public static string createAccount = "https://sketchfab.com/signup";
-		public static string reportAnIssue = "https://help.sketchfab.com/hc/en-us/requests/new?type=exporters&subject=Unity+Exporter";
-		public static string privateInfo = "https://help.sketchfab.com/hc/en-us/articles/115000422206-Private-Models";
-		public static string draftInfo = "https://help.sketchfab.com/hc/en-us/articles/115000472906-Draft-Mode";
-		public static string latestReleaseCheck = "https://api.github.com/repos/sketchfab/UnityGLTF/releases";
-		public static string plans = "https://sketchfab.com/plans";
-		public static string categories = server + "/v3/categories";
-		private static string dummyClientId = "IUO8d5VVOIUCzWQArQ3VuXfbwx5QekZfLeDlpOmW";
-		public static string oauth = server + "oauth2/token/?grant_type=password&client_id=" + dummyClientId;
-		public static string userMe = server + "/v3/me";
-		public static string userAccount = server + "/v3/me/account";
-		public static string postModel = server + "/v3/models";
-		public static string modelUrl = server + "/models";
-	}
+		public static string VERSION = "1.1.1";
 
-	// Fields limits
-	public const int NAME_LIMIT = 48;
-	public const int DESC_LIMIT = 1024;
-	public const int TAGS_LIMIT = 50;
-	public const int PASSWORD_LIMIT = 64;
-	public const int SPACE_SIZE = 5;
-
-	// UI Elements
-	public static Color RED_COLOR= new Color(0.8f, 0.0f, 0.0f);
-	public static Color BLUE_COLOR = new Color(69 / 255.0f, 185 / 255.0f, 223 / 255.0f);
-	public static Color GREY_COLOR = Color.white;
-	public static string CLICKABLE_COLOR = "navy";
-	public static Texture2D HEADER;
-	public static GUIStyle SkfbTextArea;
-	public static GUIStyle SkfbLabel;
-	public static GUIStyle SkfbClickableLabel;
-
-	public static void Initialize()
-	{
-		if(HEADER == null)
-			HEADER = Resources.Load<Texture2D>("SketchfabHeader");
-
-	}
-
-	public static void showHeader()
-	{
-		GUILayout.BeginHorizontal();
-		GUILayout.FlexibleSpace();
-		GUILayout.Label(HEADER);
-		GUILayout.FlexibleSpace();
-		GUILayout.EndHorizontal();
-	}
-
-	public static void CheckValidity(int deskSizeX = 600, int descSizeY = 175)
-	{
-		if (SkfbLabel == null)
+		public struct Urls
 		{
-			SkfbLabel = new GUIStyle(GUI.skin.label);
-			SkfbLabel.richText = true;
+			public static string baseApi = "https://api.sketchfab.com";
+
+			public static string server = "https://sketchfab.com";
+			public static string latestRelease = "https://github.com/sketchfab/unity-plugin/releases/latest";
+			public static string resetPassword = "https://sketchfab.com/login/reset-password";
+			public static string createAccount = "https://sketchfab.com/signup";
+			public static string reportAnIssue = "https://help.sketchfab.com/hc/en-us/requests/new?type=exporters&subject=Unity+Exporter";
+			public static string privateInfo = "https://help.sketchfab.com/hc/en-us/articles/115000422206-Private-Models";
+			public static string draftInfo = "https://help.sketchfab.com/hc/en-us/articles/115000472906-Draft-Mode";
+			public static string latestReleaseCheck = "https://api.github.com/repos/sketchfab/unity-plugin/releases";
+			public static string plans = "https://sketchfab.com/plans?utm_source=unity-plugin&utm_medium=plugin&utm_campaign=download-api-pro-cta";
+			public static string bannerUrl = "https://static.sketchfab.com/plugins/unity/banner.jpg";
+			public static string storeUrl = "https://sketchfab.com/store?utm_source=unity-plugin&utm_medium=plugin&utm_campaign=store-banner";
+			public static string categories = server + "/v3/categories";
+			private static string dummyClientId = "IUO8d5VVOIUCzWQArQ3VuXfbwx5QekZfLeDlpOmW";
+			public static string oauth = server + "/oauth2/token/?grant_type=password&client_id=" + dummyClientId;
+			public static string userMe = server + "/v3/me";
+			public static string userAccount = server + "/v3/me/account";
+			public static string postModel = server + "/v3/models";
+			public static string modelUrl = server + "/models";
+
+			// AssetBrowser
+			public static string searchEndpoint = baseApi + "/v3/search?type=models&downloadable=true&";
+			public static string ownModelsSearchEndpoint = baseApi + "/v3/me/search?type=models&downloadable=true";
+			public static string categoryEndpoint = baseApi + "/v3/categories";
+			public static string modelEndPoint = baseApi + "/v3/models";
+		};
+
+		public string _uploadSource = "Unity-exporter";
+
+		// Fields limits
+		public const int NAME_LIMIT = 48;
+		public const int DESC_LIMIT = 1024;
+		public const int TAGS_LIMIT = 50;
+		public const int PASSWORD_LIMIT = 64;
+		public const int SPACE_SIZE = 5;
+
+		// UI ELEMENTS
+		public static Texture2D DEFAULT_AVATAR;
+		public static Texture2D bannerTexture;
+
+		// Plugin elements
+		static SketchfabUI _ui;
+		static SketchfabLogger _logger;
+		static SketchfabAPI _api;
+		private RefreshCallback _refreshCallback;
+		private static string versionCaption = "";
+
+		// Logger needs API to check login
+		// so initialize API before Logger
+		public static void Initialize()
+		{
+			_ui = new SketchfabUI();
+			_api = new SketchfabAPI();
+			_logger = new SketchfabLogger();
+			checkUpdates();
+			retrieveBannerImage();
+			DEFAULT_AVATAR = Resources.Load("defaultAvatar") as Texture2D;
 		}
 
-		if (SkfbTextArea == null)
+		public static void retrieveBannerImage()
 		{
-			SkfbTextArea = new GUIStyle(GUI.skin.textArea);
-			SkfbTextArea.fixedWidth = deskSizeX;
-			SkfbTextArea.fixedHeight = descSizeY;
+			SketchfabRequest request = new SketchfabRequest(Urls.bannerUrl);
+			request.setCallback(onBannerRetrieved);
+			getAPI().registerRequest(request);
 		}
 
-		if (SkfbClickableLabel == null)
+		public static void onBannerRetrieved(UnityWebRequest request)
 		{
-			SkfbClickableLabel = new GUIStyle(EditorStyles.centeredGreyMiniLabel);
-			SkfbClickableLabel.richText = true;
-		}
-	}
+			bool sRGBBackup = GL.sRGBWrite;
+			GL.sRGBWrite = true;
+			byte[] data = request.downloadHandler.data;
 
-	public static string ClickableTextColor(string text)
-	{
-		return "<color=" + SketchfabPlugin.CLICKABLE_COLOR + ">" + text + "</color>";
-	}
-
-	public static void DisplayVersionPopup()
-	{
-		bool update = EditorUtility.DisplayDialog("Plugin update", "A new version is available \n(you have version " + VERSION + ")\nIt's strongly recommended that you update now. The latest version may include important bug fixes and improvements", "Update", "Skip");
-		if (update)
-		{
-			Application.OpenURL(Urls.latestRelease);
-		}
-	}
-
-	public static void showVersionChecking()
-	{
-		GUILayout.Label("Checking plugin version ...", EditorStyles.centeredGreyMiniLabel);
-	}
-
-	public static void showVersionCheckError()
-	{
-		Color current = GUI.color;
-		GUI.color = Color.red;
-		GUILayout.Label("An error occured when looking for the latest exporter version\nYou might be using an old and not fully supported version", EditorStyles.centeredGreyMiniLabel);
-		if (GUILayout.Button("Click here to be redirected to release page"))
-		{
-			Application.OpenURL(Urls.latestRelease);
-		}
-		GUI.color = current;
-	}
-
-	public static void showOutdatedVersionWarning(string latestVersion)
-	{
-		Color current = GUI.color;
-		GUI.color = RED_COLOR;
-		GUILayout.Label("New version " + latestVersion + " available (current version is " + VERSION + ")", EditorStyles.centeredGreyMiniLabel);
-		GUILayout.BeginHorizontal();
-		GUILayout.FlexibleSpace();
-		if (GUILayout.Button("Go to release page", GUILayout.Width(150), GUILayout.Height(25)))
-		{
-			Application.OpenURL(Urls.latestRelease);
-		}
-		GUILayout.FlexibleSpace();
-		GUILayout.EndHorizontal();
-		GUI.color = current;
-	}
-
-	public static void showUpToDate(string latestVersion)
-	{
-		GUILayout.BeginHorizontal();
-		GUILayout.Label("Exporter is up to date (version:" + latestVersion + ")", EditorStyles.centeredGreyMiniLabel);
-
-		GUILayout.FlexibleSpace();
-		if (GUILayout.Button(ClickableTextColor("Help"), SkfbClickableLabel, GUILayout.Height(20)))
-		{
-			Application.OpenURL(Urls.latestRelease);
+			bannerTexture = new Texture2D(2, 2);
+			bannerTexture.LoadImage(data);
 		}
 
-		if (GUILayout.Button(ClickableTextColor("Report an issue"), SkfbClickableLabel, GUILayout.Height(20)))
+		public static void checkValidity()
 		{
-			Application.OpenURL(Urls.reportAnIssue);
+			if(_ui == null || _logger == null || _api == null || DEFAULT_AVATAR == null)
+			{
+				Initialize();
+			}
 		}
-		GUILayout.EndHorizontal();
+
+		public static void checkUpdates()
+		{
+			SketchfabRequest request = new SketchfabRequest(Urls.latestReleaseCheck);
+			request.setCallback(onVersionCheckSuccess);
+			getAPI().registerRequest(request);
+		}
+
+		public static void onVersionCheckSuccess(string response)
+		{
+			JSONNode node = Utils.JSONParse(response);
+			if (node != null && node[0]["tag_name"] != null)
+			{
+				string fetchedVersion = node[0]["tag_name"];
+				if(fetchedVersion == VERSION)
+				{
+					versionCaption = "(up to date)";
+				}
+				else
+				{
+					versionCaption = SketchfabUI.ErrorTextColor("(out of date)");
+				}
+			}
+		}
+
+		// Must be called in OnGUI function in order to have EditorStyle classes created
+		public static SketchfabUI getUI()
+		{
+			if (_ui == null)
+			{
+				_ui = new SketchfabUI();
+			}
+
+			return _ui;
+		}
+
+		public static SketchfabLogger getLogger()
+		{
+			if (_logger == null)
+				_logger = new SketchfabLogger();
+
+			return _logger;
+		}
+
+		public static SketchfabAPI getAPI()
+		{
+			if (_api == null)
+				_api = new SketchfabAPI();
+
+			return _api;
+		}
+
+		// GUI functions
+		public static void displayHeader()
+		{
+			GUIStyle whiteGround = new GUIStyle(GUI.skin.box);
+			whiteGround.normal.background = SketchfabUI.MakeTex(2, 2, new Color(1f, 1f, 1f, 1f));
+
+			GUILayout.BeginHorizontal(whiteGround, GUILayout.Height(75));
+			_logger.showLoginUi();
+			GUILayout.FlexibleSpace();
+
+			// If banner available, display it
+			if (bannerTexture != null)
+			{
+				GUILayout.BeginVertical();
+				GUILayout.FlexibleSpace();
+				if(GUILayout.Button(bannerTexture, _ui.getSketchfabLabel()))
+				{
+					Application.OpenURL(Urls.storeUrl);
+				}
+				GUILayout.FlexibleSpace();
+				GUILayout.EndVertical();
+			}
+
+			GUILayout.FlexibleSpace();
+			GUILayout.BeginVertical();
+			GUILayout.FlexibleSpace();
+			GUILayout.Label(Resources.Load("SketchfabGrey") as Texture2D, GUILayout.Height(40), GUILayout.Width(190));
+			GUILayout.FlexibleSpace();
+			GUILayout.EndVertical();
+			GUILayout.EndHorizontal();
+		}
+
+
+		public static void displayFooter()
+		{
+			GUILayout.BeginHorizontal();
+			if (GUILayout.Button("Sketchfab plugin for Unity " + VERSION + " " + versionCaption, _ui.getSketchfabLabel(), GUILayout.Height(20)))
+			{
+				Application.OpenURL(Urls.latestRelease);
+			}
+			GUILayout.FlexibleSpace();
+			if(GUILayout.Button("<color=" + SketchfabUI.CLICKABLE_COLOR + "> Help </color>", _ui.getSketchfabLabel(), GUILayout.Height(20)))
+			{
+				Application.OpenURL(Urls.latestRelease);
+			}
+			if (GUILayout.Button("<color=" + SketchfabUI.CLICKABLE_COLOR + "> Report an issue </color>", _ui.getSketchfabLabel(), GUILayout.Height(20)))
+			{
+				Application.OpenURL(Urls.reportAnIssue);
+			}
+			GUILayout.EndHorizontal();
+		}
+
+		public static void Update()
+		{
+			if(_api != null)
+			_api.Update();
+		}
 	}
 }
+
 #endif

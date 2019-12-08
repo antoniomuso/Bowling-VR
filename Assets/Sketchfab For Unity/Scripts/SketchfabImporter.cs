@@ -6,310 +6,186 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEditor;
 using UnityGLTF;
 using Ionic.Zip;
+using UnityEditor;
 
-class SketchfabImporter : EditorWindow
+/// <summary>
+/// Class to handle imports from Sketchfab
+/// </summary>
+namespace Sketchfab
 {
-	[MenuItem("Sketchfab/Import glTF")]
-	static void Init()
+	class SketchfabImporter
 	{
-#if UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX
-		SketchfabImporter window = (SketchfabImporter)EditorWindow.GetWindow(typeof(SketchfabImporter));
-		window.titleContent.text = "glTF importer";
-		window.Show(true);
-#else // and error dialog if not standalone
-		EditorUtility.DisplayDialog("Error", "Your build target must be set to standalone", "Okay");
-#endif
-	}
+		GLTFEditorImporter _importer;
+		private List<string> _unzippedFiles;
 
-	// Public
-	public bool _useGLTFMaterial = false;
+		// Settings
+		string _unzipDirectory = Application.temporaryCachePath + "/unzip";
+		string _importDirectory = Application.dataPath + "/Import";
+		string _currentSampleName = "Imported";
+		bool _addToCurrentScene = false;
+		string _gltfInput;
 
-	private string _defaultImportDirectory = "";
-	private static string _currentSampleName = "Imported";
-	GLTFEditorImporter _importer;
-	string _gltfPath = "";
-	string _projectDirectory = "";
-	string _unzipDirectory = "";
-	private List<string> _unzippedFiles;
-	bool _isInitialized = false;
-	GUIStyle _header;
-	Sketchfab.SketchfabAPI _api;
-	Vector2 minimumSize = new Vector2(603, 450);
-
-	void setupAPI()
-	{
-		_api = new Sketchfab.SketchfabAPI("Unity-exporter");
-
-		//Setup callbacks
-		_api.setCheckVersionSuccessCb(OnCheckVersionSuccess);
-		_api.setCheckVersionFailedCb(OnCheckVersionFailure);
-		_api.checkLatestExporterVersion();
-	}
-
-	private void Initialize()
-	{
-		SketchfabPlugin.Initialize(); // Load header image
-		setupAPI();
-
-		_importer = new GLTFEditorImporter(this.Repaint);
-		_unzippedFiles = new List<string>();
-		_isInitialized = true;
-		_unzipDirectory = Application.temporaryCachePath + "/unzip";
-		_header = new GUIStyle(EditorStyles.boldLabel);
-
-		_defaultImportDirectory = Application.dataPath + "/Import";
-
-		this.minSize = minimumSize;
-	}
-
-	public void displayVersionInfo()
-	{
-		if (_api.getLatestVersion() == null)
+		public SketchfabImporter(GLTFEditorImporter.ProgressCallback progressCallback, GLTFEditorImporter.RefreshWindow finishCallback)
 		{
-			SketchfabPlugin.showVersionChecking();
-		}
-		else if (_api.getLatestVersion().Length == 0)
-		{
-			SketchfabPlugin.showVersionCheckError();
-		}
-		else if (_api.isLatestVersion())
-		{
-			SketchfabPlugin.showUpToDate(_api.getLatestVersion());
-		}
-		else
-		{
-			SketchfabPlugin.showOutdatedVersionWarning(_api.getLatestVersion());
-		}
-	}
-
-	void OnCheckVersionSuccess()
-	{
-		if (!_api.isLatestVersion())
-		{
-			SketchfabPlugin.DisplayVersionPopup();
-		}
-	}
-
-	void OnCheckVersionFailure()
-	{
-		Debug.Log("Failed to retrieve Plugin version");
-	}
-
-	private string findGltfFile()
-	{
-		string gltfFile = "";
-		DirectoryInfo info = new DirectoryInfo(_unzipDirectory);
-		foreach (FileInfo fileInfo in info.GetFiles())
-		{
-			_unzippedFiles.Add(fileInfo.FullName);
-			if (Path.GetExtension(fileInfo.FullName) == ".gltf")
-			{
-				gltfFile = fileInfo.FullName;
-			}
+			_importer = new GLTFEditorImporter(progressCallback, finishCallback);
+			_unzippedFiles = new List<string>();
 		}
 
-		return gltfFile;
-	}
-
-	private string unzipGltfArchive(string zipPath)
-	{
-		if (!Directory.Exists(_unzipDirectory))
-			Directory.CreateDirectory(_unzipDirectory);
-
-		// Clean previously unzipped files
-		GLTFUtils.removeFileList(_unzippedFiles.ToArray());
-		string gltfFile = findGltfFile();
-		if(gltfFile != "")
-		{
-			Debug.Log("GLTF file found, and should be cleaned :" + gltfFile);
-			File.Delete(gltfFile);
-		}
-
-		// Extract archive
-		ZipFile zipfile = ZipFile.Read(zipPath);
-		zipfile.ExtractAll(_unzipDirectory, ExtractExistingFileAction.OverwriteSilently);
-
-		return findGltfFile();
-	}
-
-	private void checkValidity()
-	{
-		SketchfabPlugin.CheckValidity();
-		if(_importer == null)
-		{
-			Initialize();
-		}
-
-		if (_api == null)
-		{
-			setupAPI();
-		}
-	}
-
-	public void OnDestroy()
-	{
-		GLTFUtils.removeFileList(_unzippedFiles.ToArray());
-		GLTFUtils.removeEmptyDirectory(_unzipDirectory);
-	}
-
-	public void Update()
-	{
-		if (_api != null)
-		{
-			_api.Update();
-		}
-
-		if (_importer != null)
+		public void Update()
 		{
 			_importer.Update();
-			Repaint();
 		}
-	}
 
-	private void OnGUI()
-	{
-		if (!_isInitialized)
-			Initialize();
-
-		checkValidity();
-
-		SketchfabPlugin.showHeader();
-		displayVersionInfo();
-
-		DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
-
-		if (Event.current.type == EventType.DragExited)
+		public void configure(string importDirectory, string prefabName, bool addToScene = false)
 		{
-			if(DragAndDrop.paths.Length > 0)
+
+			if (importDirectory.Length > 0)
 			{
-				_gltfPath = DragAndDrop.paths[0];
-				string modelfileName = Path.GetFileNameWithoutExtension(_gltfPath);
-				_projectDirectory = GLTFUtils.unifyPathSeparator(Path.Combine(_defaultImportDirectory, modelfileName));
-				_currentSampleName = modelfileName;
+				if (!GLTFUtils.isFolderInProjectDirectory(importDirectory))
+				{
+					Debug.LogError("Import directory in not in Assets");
+				}
+				else
+				{
+					_importDirectory = importDirectory;
+				}
+			}
+
+			if (prefabName.Length > 0)
+				_currentSampleName = prefabName;
+
+			_addToCurrentScene = addToScene;
+		}
+
+		private string findGltfFile(string directory)
+		{
+			string gltfFile = "";
+			DirectoryInfo info = new DirectoryInfo(directory);
+			foreach (FileInfo fileInfo in info.GetFiles())
+			{
+				_unzippedFiles.Add(fileInfo.FullName);
+				if (isSupportedFile(fileInfo.FullName))
+				{
+					gltfFile = fileInfo.FullName;
+				}
+			}
+
+			return gltfFile;
+		}
+
+		private void deleteExistingGLTF()
+		{
+			string gltfFile = findGltfFile(_unzipDirectory);
+			if (gltfFile != "")
+			{
+				File.Delete(gltfFile);
 			}
 		}
 
-		showImportUI();
-
-		// Options
-		emptyLines(1);
-		showOptions();
-		emptyLines(1);
-
-		// Disable import if nothing valid to import
-		GUI.enabled = _gltfPath.Length > 0 && File.Exists(_gltfPath);
-
-		// Import button
-		if (GUILayout.Button("IMPORT"))
+		private string unzipGltfArchive(string zipPath)
 		{
-			processImportButton();
+			if (!Directory.Exists(_unzipDirectory))
+				Directory.CreateDirectory(_unzipDirectory);
+			else
+				deleteExistingGLTF();
+
+			// Extract archive
+			ZipFile zipfile = ZipFile.Read(zipPath);
+
+			foreach (ZipEntry e in zipfile)
+			{
+				// check if you want to extract e or not
+				_unzippedFiles.Add(_unzipDirectory + "/" + e.FileName);
+				e.Extract(_unzipDirectory, ExtractExistingFileAction.OverwriteSilently);
+			}
+
+
+			return findGltfFile(_unzipDirectory);
 		}
 
-		showStatus();
-	}
-
-	private string stripProjectDirectory(string directory)
-	{
-		return directory.Replace(Application.dataPath, "Assets");
-	}
-
-	// UI FUNCTIONS
-	private void showImportUI()
-	{
-		// Import file
-		GUILayout.BeginHorizontal();
-		GUILayout.FlexibleSpace();
-		GUILayout.Label("Import or Drag'n drop glTF asset(gltf, glb, zip supported)", _header);
-		GUILayout.FlexibleSpace();
-		GUILayout.EndHorizontal();
-
-		GUILayout.BeginVertical("Box");
-		GUILayout.Label("Model to import: " + _gltfPath);
-		GUILayout.Label("Import directory: " + stripProjectDirectory(_projectDirectory));
-
-		GUILayout.EndVertical();
-		GUILayout.BeginHorizontal();
-		if (GUILayout.Button("Import file from disk"))
+		private string unzipGLTFArchiveData(byte[] zipData)
 		{
-			_gltfPath = EditorUtility.OpenFilePanel("Choose glTF to import", Application.dataPath, "glb,gltf,zip");
-			string modelfileName = Path.GetFileNameWithoutExtension(_gltfPath);
-			_projectDirectory = GLTFUtils.unifyPathSeparator(Path.Combine(_defaultImportDirectory, modelfileName));
-			_currentSampleName = modelfileName;
-		}
-		if (GUILayout.Button("Change import directory"))
-		{
-			changeDirectory();
-		}
-		GUILayout.EndHorizontal();
-	}
+			if (!Directory.Exists(_unzipDirectory))
+				Directory.CreateDirectory(_unzipDirectory);
+			else
+				deleteExistingGLTF();
 
-	private void emptyLines(int nbLines)
-	{
-		for(int i=0; i< nbLines; ++i)
-		{
-			GUILayout.Label("");
-		}
-	}
+			MemoryStream stream = new MemoryStream(zipData);
+			ZipFile zipfile = ZipFile.Read(stream);
+			foreach (ZipEntry e in zipfile)
+			{
+				// check if you want to extract e or not
+				_unzippedFiles.Add(_unzipDirectory + "/" + e.FileName);
+				e.Extract(_unzipDirectory, ExtractExistingFileAction.OverwriteSilently);
+			}
 
-	private void changeDirectory()
-	{
-		_projectDirectory = EditorUtility.OpenFolderPanel("Choose import directory in Project", Application.dataPath, "Assets");
-
-		// Discard if selected directory is outside of the project
-		if (!isDirectoryInProject())
-		{
-			Debug.Log("Import directory is outside of project directory. Please select path in Assets/");
-			_projectDirectory = "";
-			return;
-		}
-	}
-
-	private void showOptions()
-	{
-		GUILayout.Label("Options", _header);
-		GUILayout.BeginHorizontal();
-		GUILayout.Label("Prefab name:");
-		_currentSampleName = GUILayout.TextField(_currentSampleName, GUILayout.Width(250));
-		GUILayout.FlexibleSpace();
-		GUILayout.EndHorizontal();
-	}
-
-	private bool isDirectoryInProject()
-	{
-		return _projectDirectory.Contains(Application.dataPath);
-	}
-
-	private void processImportButton()
-	{
-		if(!isDirectoryInProject())
-		{
-			Debug.LogError("Import directory is outside of project directory. Please select path in Assets/");
-			return;
+			return findGltfFile(_unzipDirectory);
 		}
 
-		if(!Directory.Exists(_projectDirectory))
+		private string stripProjectDirectory(string directory)
 		{
-			Directory.CreateDirectory(_projectDirectory);
+			return directory.Replace(Application.dataPath, "Assets");
 		}
 
-		if (Path.GetExtension(_gltfPath) == ".zip")
+		public void loadFromBuffer(byte[] data)
 		{
-			_gltfPath = unzipGltfArchive(_gltfPath);
+			if (!GLTFUtils.isFolderInProjectDirectory(_importDirectory))
+			{
+				Debug.LogError("Import directory is outside of project directory. Please select path in Assets/");
+				return;
+			}
+
+			if (!Directory.Exists(_importDirectory))
+			{
+				Directory.CreateDirectory(_importDirectory);
+			}
+
+			_gltfInput = unzipGLTFArchiveData(data);
+			_importer.setupForPath(_gltfInput, _importDirectory, _currentSampleName, _addToCurrentScene);
+			_importer.Load();
 		}
 
-		_importer.setupForPath(_gltfPath, _projectDirectory, _currentSampleName);
-		_importer.Load();
-	}
+		private bool isSupportedFile(string filepath)
+		{
+			string ext = Path.GetExtension(filepath);
+			return (ext == ".gltf" || ext == ".glb");			
+		}
 
-	private void showStatus()
-	{
-		GUI.enabled = true;
-		GUILayout.BeginHorizontal("Box");
-		GUILayout.Label("Status: " + _importer.getStatus());
-		GUILayout.EndHorizontal();
+		public void loadFromFile(string filepath)
+		{
+			_gltfInput = filepath;
+			if (Path.GetExtension(filepath) == ".zip")
+			{
+				_gltfInput = unzipGltfArchive(filepath);
+			}
+
+			if(!isSupportedFile(_gltfInput))
+			{
+				EditorUtility.DisplayDialog("Import Failed", "No glTF data found", "OK");
+				return;
+			}
+
+			if (!Directory.Exists(_importDirectory))
+			{
+				Directory.CreateDirectory(_importDirectory);
+			}
+
+			_importer.setupForPath(_gltfInput, _importDirectory, _currentSampleName, _addToCurrentScene);
+			_importer.Load();
+		}
+
+		public void cleanArtifacts()
+		{
+			GLTFUtils.removeFileList(_unzippedFiles.ToArray());
+		}
+
+		public void OnDestroy()
+		{
+			GLTFUtils.removeFileList(_unzippedFiles.ToArray());
+			GLTFUtils.removeEmptyDirectory(_unzipDirectory);
+		}
 	}
 }
 #endif
