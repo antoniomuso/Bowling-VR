@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Linq;
 
 public delegate void Callback();
 public delegate void IntCallback(int number);
@@ -10,7 +11,6 @@ public delegate void ListIntCallback(List<int> number);
 
 public class GameManager : MonoBehaviour {
     public GameObject frameManager;
-
     public int playersNumber;
     public int totalFrames;
 
@@ -45,27 +45,31 @@ public class GameManager : MonoBehaviour {
             for (int p = 0; p < playersNumber; p++)
             {
                 Debug.Log("Player: " + p);
-                List<int> score = await frameManager.GetComponent<FrameManager>().RunFrame(f == totalFrames, p, f);
-                Debug.Log("Frame: " + f + " Player: " + p + " -> " );
 
+                List<int> score = await frameManager.GetComponent<FrameManager>().RunFrame(f == totalFrames, p, f);
+                //aspetto il punteggio del frame...
+
+                Debug.Log("Frame: " + f + " Player: " + p + " -> " );
+                
                 // Questo è lo score dove per ogni tiro hai quanti birilli hai buttato esattamente in quel tiro
                 int[] scoreT = new int[score.Count];
 
-                // Creo l'array
+                // Creo l'array e rimetto apposto i punteggi in modo ordinato
                 scoreT[0] = score[0];
                 for (int i = 1; i < scoreT.Length; i++) {
                     scoreT[i] = score[i] - score[i-1]; 
                 }
 
-                // Setto i punteggi nella lista dei punteggi 
+                
+
+                // Setto i punteggi nella lista dei punteggi e li inserisco 
                 gameScores[p][f] = new List<int>(scoreT);
 
                 int sum = 0;
                 // Raddoppio del punteggio
                 for (int i = 0; i < score.Count && timesRedoubling[p] > 0; i++, timesRedoubling[p]--) {
                     // raddoppio il tiro i
-                    continue;
-                    sum += score[i];
+                    sum += scoreT[i];
                 }
 
                 if (score.Count == 1 && score[0] == 10) {
@@ -77,11 +81,18 @@ public class GameManager : MonoBehaviour {
                     timesRedoubling[p] ++;
 
                 }
-                
+
+                Debug.Log("moltiplicatore: "+timesRedoubling[p]);
                 // Qua va fatta la somma.
 
-                // Aggiorno graficamente 
-                ScoresUI.instance.setParzialScore(p, f,  score[score.Count - 1].ToString());
+                totScore[p] += scoreT.Sum() +sum;
+
+                // Aggiorno graficamente
+                if (timesRedoubling[p] > 0)
+                {
+                    ScoresUI.instance.setParzialScore(p, f, totScore[p].ToString());
+                    ScoresUI.instance.SetTotScore(p, totScore[p].ToString());
+                }
 
                 
             }
