@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private async void StartGame() {
+        var bowlingScore = new BowlingScoreCalculator(playersNumber, totalFrames);
         ScoresUI.instance.SetNumberOfPlayers(playersNumber);
         
         for (int f = 0; f < totalFrames; f++)
@@ -60,7 +61,7 @@ public class GameManager : MonoBehaviour {
                     scoreT[i] = score[i] - score[i-1]; 
                 }
 
-                
+                bowlingScore.BowlFrame(new Frame( new List<int>(scoreT)));
 
                 // Setto i punteggi nella lista dei punteggi e li inserisco 
                 gameScores[p][f] = new List<int>(scoreT);
@@ -101,6 +102,111 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
+    }
+
+    public class Frame {
+        private List<int> framePoint;
+
+        public Frame (List<int> frame) {
+            if (frame.Count > 2) throw new System.Exception("Error frame > 2");
+
+            foreach (int i in frame) {
+                if (i > 10) throw new System.Exception("Number of point > 10");
+            }
+
+            framePoint = frame;
+        }
+
+        public bool IsStrike() {
+            return framePoint.Count == 1 && framePoint.Sum() == 10;
+        }
+
+        public bool IsSpare() {
+            return framePoint.Count == 2 && framePoint.Sum() == 10;
+        }
+
+        public int FirstThrow () {
+            return framePoint[0];
+        }
+
+        public int Total () {
+            return framePoint.Sum();
+        }
+    }
+
+    public class BowlingScoreCalculator {
+        private int playersNumber;
+        private int totalFrames;
+
+        private Frame[][] _frames;
+        private int[] scores;
+        
+        private int _currentFrame;
+
+        private int _currentPlayer;
+
+        private Frame LastFrame { get { return _frames[_currentPlayer][_currentFrame - 1]; } }
+
+        private Frame TwoFramesAgo { get { return _frames[_currentPlayer][_currentFrame - 2]; } }
+
+        public BowlingScoreCalculator (int playersNumber, int totalFrames) {
+            this.playersNumber = playersNumber;
+            this.totalFrames = totalFrames;
+            this._frames = new Frame[playersNumber][]; 
+            for (int i = 0; i < _frames.Length; i ++) {
+                this._frames[i] = new Frame[totalFrames];
+            }
+
+            this.scores = new int[playersNumber];
+
+        }
+
+        public int Score () { 
+            return scores[_currentPlayer];
+        }
+
+        public void BowlFrame(Frame frame)
+        {
+            AddMarkBonuses(frame);
+
+            scores[_currentPlayer] += frame.Total();
+            _frames[_currentPlayer++][_currentFrame] = frame;
+
+            Debug.Log("Punteggio: : : : " + scores[_currentPlayer-1]);
+
+            if (_currentPlayer >= playersNumber) {
+                _currentPlayer = 0;
+                _currentFrame++;
+            }
+
+        }
+
+        private void AddMarkBonuses(Frame frame)
+        {
+            if (WereLastTwoFramesStrikes())
+                scores[_currentPlayer] += frame.Total() + frame.FirstThrow();
+            else if (WasLastFrameAStrike())
+                scores[_currentPlayer] += frame.Total();
+            else if (WasLastFrameASpare())
+                scores[_currentPlayer] += frame.FirstThrow();
+
+            
+        }
+
+        private bool WereLastTwoFramesStrikes()
+        {
+            return WasLastFrameAStrike() && _currentFrame > 1 && TwoFramesAgo.IsStrike();
+        }
+
+        private bool WasLastFrameAStrike()
+        {
+            return _currentFrame > 0 && LastFrame.IsStrike();
+        }
+
+        private bool WasLastFrameASpare()
+        {
+            return _currentFrame > 0 && LastFrame.IsSpare();
+        }
     }
 
 }
