@@ -33,6 +33,7 @@ public class PinController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         notFallen.Remove(other.gameObject);
+        Debug.Log(other.gameObject.name + "on trigger exit"); 
     }
 
     private void OnTriggerEnter(Collider other)

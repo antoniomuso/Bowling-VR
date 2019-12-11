@@ -68,7 +68,7 @@ public class StrokeManager : MonoBehaviour
 
         //SETUP DEL TIRO
         if (reset){
-            Debug.Log("RESET BIRILLI !!");
+            // Debug.Log("RESET BIRILLI !!");
             pinController.GetComponent<PinController>().resetPositions();
             
         }
