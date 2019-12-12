@@ -8,6 +8,8 @@ public class BallTrigger : MonoBehaviour
     public GameObject pinController;
     public GameObject pulisciPista;
     public Controller ControllerManager;
+    private AudioSource audio1;
+    //private AudioSource audio2;
     public int waiterSeconds = 2;
 
     public int numberOfRounds;
@@ -18,6 +20,10 @@ public class BallTrigger : MonoBehaviour
 
     // Start is called before the first frame update
     void Start(){
+        //var sources = GetComponents<AudioSource>();
+        //audio1 = sources[0];
+        //audio2 = sources[1];
+        audio1 = GetComponent<AudioSource>();
         round = 0;
         roundsPoints = new List<(int first, int second)>();
         for (int i = 0; i < numberOfRounds; i++) {
@@ -27,12 +33,12 @@ public class BallTrigger : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        
+        audio1.Play();
     }
 
     private IEnumerator waiter() {
         yield return new WaitForSeconds(waiterSeconds);
-        
+        audio1.Play();
         int points = pinController.GetComponent<PinController>().GetPoints();
 
         // If is the first throw 
