@@ -11,6 +11,7 @@ public class StrokeManager : MonoBehaviour
 
     private IntCallback cb;
     private bool cleanAll;
+    private bool isConsecutiveCall = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -24,7 +25,9 @@ public class StrokeManager : MonoBehaviour
     private IEnumerator waiter()
     {
         yield return new WaitForSeconds(5);
+        isConsecutiveCall = false;
         int points = pinController.GetComponent<PinController>().GetPoints();
+        Debug.Log("Punti Punti: " + points);
 
         //ANIMAZIONE CHE ALZA I BIRILLI
 
@@ -45,7 +48,8 @@ public class StrokeManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Ball") {
+        if (other.gameObject.tag == "Ball" && !isConsecutiveCall) {
+            isConsecutiveCall = true;
             this.ball = other.gameObject;
             StartCoroutine(waiter());
         }

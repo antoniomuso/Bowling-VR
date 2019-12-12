@@ -116,7 +116,7 @@ public static ScoresUI instance => _instance;
                 {
                     if(sb.name.StartsWith("BackThrow") && !sb.Equals(c))
                     {
-                        Debug.Log(sb.name);
+                        //Debug.Log(sb.name);
                         result.Add(sb.GetComponentInChildren<Text>());
                     }
                 }
