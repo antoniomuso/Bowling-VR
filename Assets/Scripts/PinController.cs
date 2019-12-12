@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class PinController : MonoBehaviour
 {
     public GameObject[] pins;
-    private List<GameObject> notFallen;
+    private HashSet<GameObject> notFallen;
 
 
     // Start is called before the first frame update
@@ -38,7 +39,10 @@ public class PinController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(other.gameObject.name + "on trigger enter"); 
+        if (pins.Contains(other.gameObject)) {
+            notFallen.Add(other.gameObject);
+            Debug.Log(other.gameObject.name + "on trigger enter"); 
+        }
     }
 
     public int GetPoints(){
@@ -60,7 +64,7 @@ public class PinController : MonoBehaviour
     }
 
     private void resetNotFallen() {
-        notFallen = new List<GameObject>(pins);
+        notFallen = new HashSet<GameObject>(pins);
     }
 
     public void resetPositions() {
