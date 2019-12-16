@@ -6,12 +6,14 @@ public class State : MonoBehaviour
 {
     private Vector3 startingPos;
     private Quaternion startingRot;
-    public int force;
+    public float force;
 
     // Start is called before the first frame update
     void Start() {
         startingPos = this.transform.position;
         startingRot = this.transform.rotation;
+        if (this.gameObject.tag == "Ball")
+            this.GetComponent<Rigidbody>().AddForce(0, 0, -force, ForceMode.Impulse);
 
         Debug.Log(startingPos);
     }
@@ -27,6 +29,6 @@ public class State : MonoBehaviour
         this.GetComponent<Rigidbody>().velocity = Vector3.zero;
         this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         if (this.gameObject.tag == "Ball")
-            this.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, force));
+            this.GetComponent<Rigidbody>().AddForce(0, 0, -force, ForceMode.Impulse);
     }
 }
