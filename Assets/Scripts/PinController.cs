@@ -34,14 +34,14 @@ public class PinController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         notFallen.Remove(other.gameObject);
-        Debug.Log(other.gameObject.name + "on trigger exit"); 
+        //Debug.Log(other.gameObject.name + "on trigger exit"); 
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (pins.Contains(other.gameObject)) {
             notFallen.Add(other.gameObject);
-            Debug.Log(other.gameObject.name + "on trigger enter"); 
+            //Debug.Log(other.gameObject.name + "on trigger enter"); 
         }
     }
 

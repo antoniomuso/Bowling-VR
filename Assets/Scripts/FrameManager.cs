@@ -45,11 +45,14 @@ public class FrameManager : MonoBehaviour
             else ScoresUI.instance.SetScore(player, frame, 1, sub.ToString());
 
         } else {
+            Debug.Log("Last Frame");
             int score = await strokeManager.GetComponent<StrokeManager>().StartThrow(true, false);
             scores.Add(score);
             if (score == PinNumber) {
+                Debug.Log("Last Frame Strike");
                 ScoresUI.instance.SetScore(player, frame, 0, "X");
                 //SECONDO TIRO
+                Debug.Log("Last Frame secondo tiro");
                 score = await strokeManager.GetComponent<StrokeManager>().StartThrow(true, false);
                 scores.Add(score);
                 
@@ -58,6 +61,7 @@ public class FrameManager : MonoBehaviour
                 if (reset) ScoresUI.instance.SetScore(player, frame, 1, "X"); 
                 else ScoresUI.instance.SetScore(player, frame, 1, (scores[1] - scores[0]).ToString()); 
 
+                Debug.Log("Last Frame terzo tiro");
                 //TERZO TIRO
                 score = await strokeManager.GetComponent<StrokeManager>().StartThrow(reset, true);
                 scores.Add(score);
@@ -67,13 +71,14 @@ public class FrameManager : MonoBehaviour
                 else ScoresUI.instance.SetScore(player, frame, 2, (scores[2] - scores[1]).ToString()); 
 
             } else {
+                Debug.Log("Last Frame No Strike");
                 ScoresUI.instance.SetScore(player, frame, 0, score.ToString()); 
                 //SECONDO TIRO
                 int secondScore = await strokeManager.GetComponent<StrokeManager>().StartThrow(false, true);
                 scores.Add(secondScore);
 
-                int TotalScore = score + secondScore;
-                if (TotalScore == PinNumber) {
+                if (secondScore == PinNumber) {
+                    Debug.Log("Last Frame Spare");
                     ScoresUI.instance.SetScore(player, frame, 1, "/"); 
 
                     //TERZO TIRO

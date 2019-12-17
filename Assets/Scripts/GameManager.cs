@@ -14,25 +14,11 @@ public class GameManager : MonoBehaviour {
     public int playersNumber;
     public int totalFrames;
 
-    // player -> frame -> punteggio
-    private List<List<List<int>>> gameScores;
 
-    private int[] totScore;
-    private int[] timesRedoubling;
 
     // Start is called before the first frame update
     void Start() {  
-        totScore = new int[playersNumber];
-        timesRedoubling = new int[playersNumber];
 
-        gameScores = new List<List<List<int>>>();
-        for (int i = 0; i < playersNumber; i++) {
-            List<List<int>> point = new List<List<int>>();
-            for(int j = 0; j < totalFrames; j++) {
-                point.Add(new List<int>());
-            }
-            gameScores.Add(point);
-        }
         StartGame();
     }
 
@@ -47,7 +33,7 @@ public class GameManager : MonoBehaviour {
             {
                 Debug.Log("Player: " + p);
 
-                List<int> score = await frameManager.GetComponent<FrameManager>().RunFrame(f == totalFrames, p, f);
+                List<int> score = await frameManager.GetComponent<FrameManager>().RunFrame(f == (totalFrames - 1), p, f);
                 //aspetto il punteggio del frame...
 
                 Debug.Log("Frame: " + f + " Player: " + p + " -> " );
@@ -61,41 +47,10 @@ public class GameManager : MonoBehaviour {
                     scoreT[i] = score[i] - score[i-1]; 
                 }
 
-                bowlingScore.BowlFrame(new Frame( new List<int>(scoreT)));
+                bowlingScore.BowlFrame(new Frame( new List<int>(scoreT)), f, p);
 
-                // Setto i punteggi nella lista dei punteggi e li inserisco 
-                gameScores[p][f] = new List<int>(scoreT);
-
-                int sum = 0;
-                // Raddoppio del punteggio
-                for (int i = 0; i < score.Count && timesRedoubling[p] > 0; i++, timesRedoubling[p]--) {
-                    // raddoppio il tiro i
-                    sum += scoreT[i];
-                }
-
-                if (score.Count == 1 && score[0] == 10) {
-                    // Abbiamo fatto strike
-                    timesRedoubling[p] += 2;   
-
-                } else if (score.Count == 2 && score[1] == 10) {
-                    // Abbiamo fatto spare
-                    timesRedoubling[p] ++;
-
-                }
-
-                Debug.Log("moltiplicatore: "+timesRedoubling[p]);
-                // Qua va fatta la somma.
-
-                totScore[p] += scoreT.Sum() +sum;
-
-                // Aggiorno graficamente
-                if (timesRedoubling[p] > 0)
-                {
-                    ScoresUI.instance.setParzialScore(p, f, totScore[p].ToString());
-                    ScoresUI.instance.SetTotScore(p, totScore[p].ToString());
-                }
-
-                
+                ScoresUI.instance.setParzialScore(p, f, bowlingScore.Score().ToString());
+                ScoresUI.instance.SetTotScore(p, bowlingScore.Score().ToString());
             }
         }
     }
@@ -165,20 +120,17 @@ public class GameManager : MonoBehaviour {
             return scores[_currentPlayer];
         }
 
-        public void BowlFrame(Frame frame)
+        public void BowlFrame(Frame frame, int currentFrame, int currentPlayer)
         {
+            _currentFrame = currentFrame;
+            _currentPlayer = currentPlayer;
+
             AddMarkBonuses(frame);
 
             scores[_currentPlayer] += frame.Total();
-            _frames[_currentPlayer++][_currentFrame] = frame;
+            _frames[_currentPlayer][_currentFrame] = frame;
 
-            Debug.Log("Punteggio: : : : " + scores[_currentPlayer-1]);
-
-            if (_currentPlayer >= playersNumber) {
-                _currentPlayer = 0;
-                _currentFrame++;
-            }
-
+            Debug.Log("Punteggio: : : : " + scores[_currentPlayer]);
         }
 
         private void AddMarkBonuses(Frame frame)
@@ -190,7 +142,6 @@ public class GameManager : MonoBehaviour {
             else if (WasLastFrameASpare())
                 scores[_currentPlayer] += frame.FirstThrow();
 
-            
         }
 
         private bool WereLastTwoFramesStrikes()
