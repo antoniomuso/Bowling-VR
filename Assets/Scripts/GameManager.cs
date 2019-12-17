@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
         
         for (int f = 0; f < totalFrames; f++)
         {
+            ScoresUI.instance.SwitchOnFrame(f);
             Debug.Log("Frame: " + f);
             for (int p = 0; p < playersNumber; p++)
             {
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour {
                 ScoresUI.instance.setParzialScore(p, f, bowlingScore.Score().ToString());
                 ScoresUI.instance.SetTotScore(p, bowlingScore.Score().ToString());
             }
+            ScoresUI.instance.SwitchOffFrame(f);
         }
     }
     // Update is called once per frame

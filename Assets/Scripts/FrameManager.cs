@@ -87,7 +87,7 @@ public class FrameManager : MonoBehaviour
 
                     if (score == PinNumber) ScoresUI.instance.SetScore(player, frame, 2, "X"); 
                     else ScoresUI.instance.SetScore(player, frame, 2, (scores[2] - scores[1]).ToString()); 
-                }
+                } else ScoresUI.instance.SetScore(player, frame, 1, (scores[1] - scores[0]).ToString()); 
             }
         }
         Debug.Log("Ritornando i risultati");
