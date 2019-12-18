@@ -8,7 +8,9 @@ public class BallTrigger : MonoBehaviour
     public GameObject pinController;
     public GameObject pulisciPista;
     public Controller ControllerManager;
+
     private AudioSource audio1;
+    public GameObject floor;
     //private AudioSource audio2;
     public int waiterSeconds = 2;
 
@@ -33,12 +35,10 @@ public class BallTrigger : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        audio1.Play();
     }
 
     private IEnumerator waiter() {
         yield return new WaitForSeconds(waiterSeconds);
-        audio1.Play();
         int points = pinController.GetComponent<PinController>().GetPoints();
 
         // If is the first throw 
@@ -67,11 +67,25 @@ public class BallTrigger : MonoBehaviour
       
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            audio1.Play();
+        }
+        
+
+
+    }
+
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.Equals(ball)){
             StartCoroutine(waiter());
         }
     }
+
+
+ 
 
     public void resetBall() {
         ControllerManager.launched = true;
