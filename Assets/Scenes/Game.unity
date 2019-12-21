@@ -25114,7 +25114,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613287181}
-  m_Material: {fileID: 13400000, guid: 01571ba68fb2dad46aa03094ab219579, type: 2}
+  m_Material: {fileID: 13400000, guid: ba92fb44336020f40bdf294bb66bc9da, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -32643,17 +32643,17 @@ PrefabInstance:
     - target: {fileID: 5187782379738043261, guid: d2a67f7c9dbceb24bb7be99c07714d26,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.735
+      value: -4.7385
       objectReference: {fileID: 0}
     - target: {fileID: 5187782379738043261, guid: d2a67f7c9dbceb24bb7be99c07714d26,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.23
+      value: 3.09
       objectReference: {fileID: 0}
     - target: {fileID: 5187782379738043261, guid: d2a67f7c9dbceb24bb7be99c07714d26,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.279
+      value: 12.897
       objectReference: {fileID: 0}
     - target: {fileID: 5187782379738043261, guid: d2a67f7c9dbceb24bb7be99c07714d26,
         type: 3}
@@ -32698,17 +32698,17 @@ PrefabInstance:
     - target: {fileID: 5187782379738043261, guid: d2a67f7c9dbceb24bb7be99c07714d26,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.6
+      value: 1.6876513
       objectReference: {fileID: 0}
     - target: {fileID: 5187782379738043261, guid: d2a67f7c9dbceb24bb7be99c07714d26,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.6
+      value: 1.6876513
       objectReference: {fileID: 0}
     - target: {fileID: 5187782379738043261, guid: d2a67f7c9dbceb24bb7be99c07714d26,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.6
+      value: 1.6876513
       objectReference: {fileID: 0}
     - target: {fileID: 5302879401894059592, guid: d2a67f7c9dbceb24bb7be99c07714d26,
         type: 3}
