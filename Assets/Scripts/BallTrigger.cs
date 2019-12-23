@@ -8,10 +8,6 @@ public class BallTrigger : MonoBehaviour
     public GameObject pinController;
     public GameObject pulisciPista;
     public Controller ControllerManager;
-
-    private AudioSource audio1;
-    public GameObject floor;
-    //private AudioSource audio2;
     public int waiterSeconds = 2;
 
     public int numberOfRounds;
@@ -22,10 +18,6 @@ public class BallTrigger : MonoBehaviour
 
     // Start is called before the first frame update
     void Start(){
-        //var sources = GetComponents<AudioSource>();
-        //audio1 = sources[0];
-        //audio2 = sources[1];
-        audio1 = GetComponent<AudioSource>();
         round = 0;
         roundsPoints = new List<(int first, int second)>();
         for (int i = 0; i < numberOfRounds; i++) {
@@ -67,16 +59,7 @@ public class BallTrigger : MonoBehaviour
       
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            audio1.Play();
-        }
-        
-
-
-    }
+    
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.Equals(ball)){
