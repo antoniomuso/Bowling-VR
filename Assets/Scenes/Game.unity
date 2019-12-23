@@ -3142,7 +3142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 161945914}
-  floor: {fileID: 1706784328}
+  floor: {fileID: 1150382772}
   pins:
   - {fileID: 2096537756}
   - {fileID: 637498825}
@@ -16599,7 +16599,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b13fb49732a30449681778ff63452aaf, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.21
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -17815,6 +17815,12 @@ Transform:
   m_Father: {fileID: 1610216566}
   m_RootOrder: 175
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1150382772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2506614155983396305, guid: 1d80a78ac38c7ef00853b54297f2f33c,
+    type: 3}
+  m_PrefabInstance: {fileID: 882504532}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1151164139
 GameObject:
   m_ObjectHideFlags: 0
@@ -25559,9 +25565,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2fd3779f19e144818a845ba7fddea90d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d47e777567e81448fa671d3a25af821f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.38
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -27036,12 +27042,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705998057}
   m_Mesh: {fileID: 4300000, guid: 547bdc54eb7a0614ebec81e0c8d11070, type: 2}
---- !u!1 &1706784328 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3720112590350265649, guid: ae2b1e47a41d8357d83d8a07ab920cdb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1421072798}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1708863270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28497,7 +28497,7 @@ PrefabInstance:
     - target: {fileID: 6545754329271769540, guid: ad762cd2397c87b4a8d602e96735ef09,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.203685
+      value: -7.19
       objectReference: {fileID: 0}
     - target: {fileID: 6545754329271769540, guid: ad762cd2397c87b4a8d602e96735ef09,
         type: 3}
