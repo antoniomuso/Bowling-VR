@@ -24,12 +24,18 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("We are now connected to the " + PhotonNetwork.CloudRegion + " server!");
+        PhotonNetwork.CreateRoom("test"); 
+    }
 
+    public override void OnCreatedRoom() {
         PhotonNetwork.JoinRoom("test");
     }
 
     public override void OnJoinedRoom() {
         Debug.Log("Joined in room test");
+        PhotonNetwork.InstantiateSceneObject("Score", new Vector3(-5.63f, 0.209f, 7.556f), Quaternion.identity);
+        //birillo.SetActive(true);
+
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message) {
