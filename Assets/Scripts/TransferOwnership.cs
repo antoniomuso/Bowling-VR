@@ -21,7 +21,6 @@ public class TransferOwnership : MonoBehaviourPunCallbacks
     public void RequestOwnership()
     {
          this.GetComponent<PhotonView>().RequestOwnership();
-         this.GetComponent<Rigidbody>().isKinematic = false;
     }
 
 /*
@@ -40,7 +39,6 @@ public class TransferOwnership : MonoBehaviourPunCallbacks
         // if (this.TransferOwnershipOnRequest)
         // {
             view.TransferOwnership(requestingPlayer);
-            this.GetComponent<Rigidbody>().isKinematic = true;
         // }
     }
 
