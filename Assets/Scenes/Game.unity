@@ -29645,7 +29645,7 @@ PrefabInstance:
     - target: {fileID: 6496484399431770752, guid: ad762cd2397c87b4a8d602e96735ef09,
         type: 3}
       propertyPath: OwnershipTransfer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6545754329271769540, guid: ad762cd2397c87b4a8d602e96735ef09,
         type: 3}
