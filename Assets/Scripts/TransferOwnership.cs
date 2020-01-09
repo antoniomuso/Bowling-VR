@@ -1,7 +1,8 @@
-﻿using Photon.Pun;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class TransferOwnership : MonoBehaviourPunCallbacks
 {
@@ -17,22 +18,28 @@ public class TransferOwnership : MonoBehaviourPunCallbacks
         
     }
 
+    public void RequestOwnership()
+    {
+         this.GetComponent<PhotonView>().RequestOwnership();
+    }
+
+/*
     public void OnTransferOwnership()
     {
         this.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.LocalPlayer);
     }
+*/
 
-/*  
     public void OnOwnershipRequest(object[] viewAndPlayer)
     {
         PhotonView view = viewAndPlayer[0] as PhotonView;
-        PhotonPlayer requestingPlayer = viewAndPlayer[1] as PhotonPlayer;
+        Player requestingPlayer = viewAndPlayer[1] as Player;
 
         Debug.Log("OnOwnershipRequest(): Player " + requestingPlayer + " requests ownership of: " + view + ".");
-        if (this.TransferOwnershipOnRequest)
-        {
-            view.TransferOwnership(requestingPlayer.ID);
-        }
+        // if (this.TransferOwnershipOnRequest)
+        // {
+            view.TransferOwnership(requestingPlayer);
+        // }
     }
-*/
+
 }
