@@ -1,7 +1,8 @@
-﻿using Photon.Pun;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 public class NetworkController : MonoBehaviourPunCallbacks
 {
      /******************************************************
@@ -15,6 +16,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
      * https://doc.photonengine.com/en-us/realtime/current/connection-and-authentication/regions
      *
      * ******************************************************/
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,21 +26,24 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("We are now connected to the " + PhotonNetwork.CloudRegion + " server!");
-        PhotonNetwork.CreateRoom("test"); 
+        // PhotonNetwork.JoinRoom("test");
+
+        RoomOptions options = new RoomOptions();
+        PhotonNetwork.JoinOrCreateRoom("test", options, TypedLobby.Default);
     }
 
+/*
     public override void OnCreatedRoom() {
         PhotonNetwork.JoinRoom("test");
     }
 
     public override void OnJoinedRoom() {
         Debug.Log("Joined in room test");
-        PhotonNetwork.InstantiateSceneObject("Score", new Vector3(-5.63f, 0.209f, 7.556f), Quaternion.identity);
-        //birillo.SetActive(true);
 
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message) {
         Debug.Log(message);
     }
+*/
 }
