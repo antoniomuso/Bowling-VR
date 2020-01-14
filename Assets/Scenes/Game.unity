@@ -7157,22 +7157,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballOwner: 0
---- !u!114 &422952955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 422952947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 1
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &434600208
 GameObject:
   m_ObjectHideFlags: 0
@@ -29702,7 +29686,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 774943696, guid: ad762cd2397c87b4a8d602e96735ef09, type: 3}
       propertyPath: m_IsKinematic
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 774943696, guid: ad762cd2397c87b4a8d602e96735ef09, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1762312308559600615, guid: ad762cd2397c87b4a8d602e96735ef09,
         type: 3}
@@ -29767,7 +29755,7 @@ PrefabInstance:
     - target: {fileID: 6496484399431770752, guid: ad762cd2397c87b4a8d602e96735ef09,
         type: 3}
       propertyPath: ObservedComponents.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6496484399431770752, guid: ad762cd2397c87b4a8d602e96735ef09,
         type: 3}
@@ -29788,7 +29776,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ObservedComponents.Array.data[1]
       value: 
-      objectReference: {fileID: 422952955}
+      objectReference: {fileID: 0}
     - target: {fileID: 6496484399431770752, guid: ad762cd2397c87b4a8d602e96735ef09,
         type: 3}
       propertyPath: ObservedComponents.Array.data[0]
@@ -32002,8 +31990,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3687896, y: 0.16230232, z: 2.0593872}
-  m_Center: {x: 1.4239274, y: 0.103257895, z: -0.05563736}
+  m_Size: {x: 2.6014128, y: 0.16136676, z: 7.924652}
+  m_Center: {x: 1.3285677, y: 0.10279012, z: 2.876995}
 --- !u!4 &1917987357
 Transform:
   m_ObjectHideFlags: 0
