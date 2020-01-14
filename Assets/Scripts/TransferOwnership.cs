@@ -28,7 +28,10 @@ public class TransferOwnership : MonoBehaviour
 
     public void ReleaseOwnership() {
         //this.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.MasterClient);
-        this.ballOwner = false;
-        this.GetComponent<Rigidbody>().useGravity = true;
+        if (this.GetComponent<PhotonView>().IsMine) {
+            this.ballOwner = false;
+            this.GetComponent<Rigidbody>().isKinematic = false;
+            this.GetComponent<Rigidbody>().useGravity = true;
+        }
     }
 }
