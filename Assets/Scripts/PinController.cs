@@ -53,10 +53,11 @@ public class PinController : MonoBehaviour
     public void upliftNotFallenPins()
     {
         foreach (var pin in notFallen) {
-            pin.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            pin.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-            pin.transform.position = Vector3.zero;
-            pin.transform.rotation = Quaternion.identity;
+            //pin.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            //pin.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            //pin.transform.position = Vector3.zero;
+            //pin.transform.rotation = Quaternion.identity;
+            pin.GetComponent<State>().resetObject();
             pin.GetComponent<Animation>().Play();
             
         } 
@@ -70,8 +71,8 @@ public class PinController : MonoBehaviour
     public void resetPositions() {
         for (int i = 0; i < pins.Length; i++) {
             pins[i].GetComponent<State>().resetObject();
-            pins[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
-            pins[i].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            //pins[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
+            //pins[i].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
         resetNotFallen();
     }

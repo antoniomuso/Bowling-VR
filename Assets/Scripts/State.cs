@@ -30,12 +30,14 @@ public class State : MonoBehaviour
     }
 
     public void resetObject() {
-        this.transform.position = startingPos;
-        this.transform.rotation = startingRot;
-        this.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-
-        if (force != 0)
-            this.GetComponent<Rigidbody>().AddForce(0, 0, -force, ForceMode.Impulse);
+        if (this.GetComponent<PhotonView>().IsMine) {
+            this.transform.position = startingPos;
+            this.transform.rotation = startingRot;
+            this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+    
+            if (force != 0)
+                this.GetComponent<Rigidbody>().AddForce(0, 0, -force, ForceMode.Impulse);
+        }
     }
 }
