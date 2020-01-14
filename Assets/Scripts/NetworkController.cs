@@ -18,6 +18,9 @@ public class NetworkController : MonoBehaviourPunCallbacks
      * ******************************************************/
 
     // Start is called before the first frame update
+
+    public PinController pins;
+    public GameObject ball;
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings(); //Connects to Photon master servers
@@ -30,6 +33,23 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         RoomOptions options = new RoomOptions();
         PhotonNetwork.JoinOrCreateRoom("test", options, TypedLobby.Default);
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient) {
+        if (PhotonNetwork.LocalPlayer.IsMasterClient) {
+            Debug.Log("Is Master");
+            foreach (GameObject pin in pins.pins) {
+                pin.GetComponent<Rigidbody>().isKinematic = false;
+                pin.GetComponent<Animation>().enabled = true;
+            }
+        } else {
+            Debug.Log("Not Master");
+            foreach (GameObject pin in pins.pins) {
+                pin.GetComponent<Rigidbody>().isKinematic = true;
+                pin.GetComponent<Animation>().enabled = false;
+            }
+
+        }
     }
 
 /*
@@ -45,5 +65,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message) {
         Debug.Log(message);
     }
+
 */
+    
 }
