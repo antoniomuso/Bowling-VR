@@ -71,28 +71,29 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
     
     public void RequestOwnership()
     {
-         this.GetComponent<PhotonView>().RequestOwnership();
+         ball.GetComponent<PhotonView>().RequestOwnership();
     }
 
     public void ReleaseOwnership() {
-         this.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.MasterClient);
+         ball.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.MasterClient);
     }
 
     public void OnOwnershipRequest(PhotonView view, Player reqPlayer) {
         Debug.Log("OnOwnershipRequest(): Player " + reqPlayer + " requests ownership of: " + view + ".");
         if (!ballOwner) {
             view.TransferOwnership(reqPlayer);
-            if (reqPlayer.IsLocal) {
-                ball.GetComponent<Rigidbody>().isKinematic = false;
-            }
         }
     }
 
     public void OnOwnershipTransfered(PhotonView view, Player prevPlayer) { 
+        Debug.Log("Transfer PrevPlayer: " + prevPlayer);
         Debug.Log("OnOwnershipTransfered(): Player " + prevPlayer + " requests ownership of: " + view + ".");
         ballOwner = !ballOwner;
-        if (prevPlayer.IsLocal) {
+        if (ball.GetComponent<PhotonView>().IsMine) {
+            Debug.Log("OnOwnershipTransfered Local Player: " + PhotonNetwork.LocalPlayer);
             ball.GetComponent<Rigidbody>().isKinematic = true;
+        } else {
+            ball.GetComponent<Rigidbody>().isKinematic = false;
         }
     }
     
