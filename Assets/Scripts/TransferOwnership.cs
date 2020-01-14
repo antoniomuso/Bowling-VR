@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class TransferOwnership : MonoBehaviourPunCallbacks
+public class TransferOwnership : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
 {
     // Start is called before the first frame update
     void Start()
@@ -30,16 +30,19 @@ public class TransferOwnership : MonoBehaviourPunCallbacks
     }
 */
 
-    public void OnOwnershipRequest(object[] viewAndPlayer)
+    public void OnOwnershipRequest(PhotonView view, Player reqPlayer)
     {
-        PhotonView view = viewAndPlayer[0] as PhotonView;
-        Player requestingPlayer = viewAndPlayer[1] as Player;
 
-        Debug.Log("OnOwnershipRequest(): Player " + requestingPlayer + " requests ownership of: " + view + ".");
+        Debug.Log("OnOwnershipRequest(): Player " + reqPlayer + " requests ownership of: " + view + ".");
         // if (this.TransferOwnershipOnRequest)
         // {
-            view.TransferOwnership(requestingPlayer);
+            //view.TransferOwnership(reqPlayer);
         // }
+    }
+
+    public void OnOwnershipTransfered(PhotonView view, Player prevPlayer) {
+
+        Debug.Log("OnOwnershipTransfered(): Player " + prevPlayer + " requests ownership of: " + view + ".");
     }
 
 }
