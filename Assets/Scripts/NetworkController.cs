@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-public class NetworkController : MonoBehaviourPunCallbacks
+public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
 {
      /******************************************************
      * Refer to the Photon documentation and scripting API for official definitions and descriptions
@@ -21,6 +21,9 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public PinController pins;
     public GameObject ball;
+
+    private bool ballOwner = false;
+
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings(); //Connects to Photon master servers
@@ -42,13 +45,14 @@ public class NetworkController : MonoBehaviourPunCallbacks
                 pin.GetComponent<Rigidbody>().isKinematic = false;
                 pin.GetComponent<Animation>().enabled = true;
             }
+            ball.GetComponent<Rigidbody>().isKinematic = false;
         } else {
             Debug.Log("Not Master");
             foreach (GameObject pin in pins.pins) {
                 pin.GetComponent<Rigidbody>().isKinematic = true;
                 pin.GetComponent<Animation>().enabled = false;
             }
-
+            ball.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 
@@ -64,6 +68,32 @@ public class NetworkController : MonoBehaviourPunCallbacks
         Debug.Log(message);
     }
 
+    
+    public void RequestOwnership()
+    {
+         this.GetComponent<PhotonView>().RequestOwnership();
+    }
 
+    public void ReleaseOwnership() {
+         this.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.MasterClient);
+    }
+
+    public void OnOwnershipRequest(PhotonView view, Player reqPlayer) {
+        Debug.Log("OnOwnershipRequest(): Player " + reqPlayer + " requests ownership of: " + view + ".");
+        if (!ballOwner) {
+            view.TransferOwnership(reqPlayer);
+            if (reqPlayer.IsLocal) {
+                ball.GetComponent<Rigidbody>().isKinematic = false;
+            }
+        }
+    }
+
+    public void OnOwnershipTransfered(PhotonView view, Player prevPlayer) { 
+        Debug.Log("OnOwnershipTransfered(): Player " + prevPlayer + " requests ownership of: " + view + ".");
+        ballOwner = !ballOwner;
+        if (prevPlayer.IsLocal) {
+            ball.GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
     
 }
