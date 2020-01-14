@@ -75,6 +75,7 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
         if (!view.gameObject.GetComponent<TransferOwnership>().ballOwner) {
             view.TransferOwnership(reqPlayer);
             view.gameObject.GetComponent<TransferOwnership>().ballOwner = true;
+            view.gameObject.GetComponent<Rigidbody>().useGravity = false;
         }
     }
 
