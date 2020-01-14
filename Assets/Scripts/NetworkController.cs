@@ -34,8 +34,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
         RoomOptions options = new RoomOptions();
         PhotonNetwork.JoinOrCreateRoom("test", options, TypedLobby.Default);
     }
-
-    public override void OnMasterClientSwitched(Player newMasterClient) {
+    
+    private void switchMaster() {
         if (PhotonNetwork.LocalPlayer.IsMasterClient) {
             Debug.Log("Is Master");
             foreach (GameObject pin in pins.pins) {
@@ -52,20 +52,18 @@ public class NetworkController : MonoBehaviourPunCallbacks
         }
     }
 
-/*
-    public override void OnCreatedRoom() {
-        PhotonNetwork.JoinRoom("test");
+    public override void OnMasterClientSwitched(Player newMasterClient) {
+        switchMaster();
     }
 
     public override void OnJoinedRoom() {
-        Debug.Log("Joined in room test");
-
+        switchMaster();
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message) {
         Debug.Log(message);
     }
 
-*/
+
     
 }
