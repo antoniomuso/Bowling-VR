@@ -34,5 +34,7 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - EnableHovering
+  - DisableHovering
   DisableAutoOpenWizard: 1
   ShowSettings: 1

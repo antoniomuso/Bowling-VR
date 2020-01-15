@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using IgnoreHovering = Valve.VR.InteractionSystem.IgnoreHovering;
+
 public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
 {
      /******************************************************
@@ -27,12 +29,35 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
     public override void OnConnectedToMaster()
     {
         Debug.Log("We are now connected to the " + PhotonNetwork.CloudRegion + " server!");
-        // PhotonNetwork.JoinRoom("test");
+        //PhotonNetwork.JoinRoom("test");
 
         RoomOptions options = new RoomOptions();
         PhotonNetwork.JoinOrCreateRoom("test", options, TypedLobby.Default);
     }
     
+    public void OnOwnershipRequest(PhotonView view, Player reqPlayer) {
+        Debug.Log("OnOwnershipRequest(): Player " + reqPlayer + " requests ownership of: " + view + ".");
+
+        if (!view.gameObject.GetComponent<TransferOwnership>().ballOwner) {
+            view.TransferOwnership(reqPlayer);
+            view.gameObject.GetComponent<TransferOwnership>().ballOwner = true;
+            //view.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        }
+    }
+
+    public void OnOwnershipTransfered(PhotonView view, Player prevPlayer) { 
+        Debug.Log("Transfer PrevPlayer: " + prevPlayer);
+
+        if (view.gameObject.tag == "Ball") {
+            if (view.IsMine) {
+                //view.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            } else {
+                view.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                view.gameObject.AddComponent<IgnoreHovering>();
+            }
+        }
+    }
+
     /*
     private void switchMaster() {
         if (PhotonNetwork.LocalPlayer.IsMasterClient) {
@@ -54,9 +79,7 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
             ball.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
-    */
-
-/*
+    
     public override void OnMasterClientSwitched(Player newMasterClient) {
         switchMaster();
     }
@@ -69,25 +92,4 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
         Debug.Log(message);
     }
     */
-
-    public void OnOwnershipRequest(PhotonView view, Player reqPlayer) {
-        Debug.Log("OnOwnershipRequest(): Player " + reqPlayer + " requests ownership of: " + view + ".");
-        if (!view.gameObject.GetComponent<TransferOwnership>().ballOwner) {
-            view.TransferOwnership(reqPlayer);
-            view.gameObject.GetComponent<TransferOwnership>().ballOwner = true;
-            view.gameObject.GetComponent<Rigidbody>().useGravity = false;
-        }
-    }
-
-    public void OnOwnershipTransfered(PhotonView view, Player prevPlayer) { 
-        Debug.Log("Transfer PrevPlayer: " + prevPlayer);
-        //ball.GetComponent<Rigidbody>().useGravity = view.gameObject.GetComponent<TransferOwnership>().ballOwner;
-        if (view.IsMine) {
-            //Debug.Log("OnOwnershipTransfered Local Player: " + PhotonNetwork.LocalPlayer);
-            view.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-        } else {
-            view.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        }
-    }
-    
 }
