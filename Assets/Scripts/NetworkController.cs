@@ -57,6 +57,13 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
             }
         }
     }
+    public override void OnJoinedRoom() {
+        //PhotonNetwork
+    }
+
+    public override void OnJoinRandomFailed(short returnCode, string message) {
+        Debug.Log(message);
+    }
 
     /*
     private void switchMaster() {
@@ -86,10 +93,6 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
 
     public override void OnJoinedRoom() {
         switchMaster();
-    }
-
-    public override void OnJoinRandomFailed(short returnCode, string message) {
-        Debug.Log(message);
     }
     */
 }
