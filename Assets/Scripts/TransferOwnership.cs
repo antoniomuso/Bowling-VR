@@ -9,6 +9,8 @@ public class TransferOwnership : MonoBehaviour
 {
     public bool ballOwner = false;
 
+    public bool destroyComponent = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,9 @@ public class TransferOwnership : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!ballOwner) {
+            Destroy(this.GetComponent<IgnoreHovering>());
+        }  
     }
 
     [PunRPC]
@@ -51,8 +55,10 @@ public class TransferOwnership : MonoBehaviour
         if (this.GetComponent<PhotonView>().IsMine) {
             this.GetComponent<Rigidbody>().isKinematic = false;
         } else {
+            Debug.Log("Destroying Hovering: " + this.GetComponent<IgnoreHovering>());
             //this.GetComponent<Rigidbody>().isKinematic = true;
-            Destroy(this.GetComponent<IgnoreHovering>());
+            //Destroy(this.GetComponentInChildren<IgnoreHovering>());
+            Debug.Log("Destroying Hovering2: " + this.GetComponentInChildren<IgnoreHovering>());
         }
     }
 
