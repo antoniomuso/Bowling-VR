@@ -64,8 +64,9 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
     }
 
     public override void OnPlayerEnteredRoom (Player newPlayer) {
-        ScoresUI.instance.SetName(0, PhotonNetwork.PlayerList[0].NickName);
-        ScoresUI.instance.SetName(1, PhotonNetwork.PlayerList[1].NickName);
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++) {
+            ScoresUI.instance.SetName(i, PhotonNetwork.PlayerList[i].NickName);
+        }
 
         gameManager.playersNumber = PhotonNetwork.PlayerList.Length;
         gameManager.StartGame();
