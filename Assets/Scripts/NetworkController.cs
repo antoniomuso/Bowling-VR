@@ -23,6 +23,7 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
 
     // Start is called before the first frame update
 
+    public GameManager gameManager;
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings(); //Connects to Photon master servers
@@ -60,6 +61,16 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
         }
     }
 
+    public override void OnPlayerEnteredRoom (Player newPlayer) {
+        gameManager.playersNumber = PhotonNetwork.PlayerList.Length;
+        gameManager.StartGame();
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer) {
+        gameManager.playersNumber = PhotonNetwork.PlayerList.Length;
+        gameManager.StartGame();
+    }
+
     public override void OnJoinedRoom() {
         Debug.Log("cREAZIONE");
         //PhotonNetwork.Instantiate("NetworkedPlayer", new Vector3(-5.63f, 0.209f, 7.556f), Quaternion.identity);
@@ -75,6 +86,8 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
 
         rightHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
         leftHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
+
+        OnPlayerEnteredRoom(PhotonNetwork.LocalPlayer);
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message) {

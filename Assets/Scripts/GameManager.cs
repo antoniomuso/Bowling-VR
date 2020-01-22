@@ -16,13 +16,9 @@ public class GameManager : MonoBehaviour {
 
 
 
-    // Start is called before the first frame update
-    void Start() {  
-
-        StartGame();
-    }
-
-    private async void StartGame() {
+    public async void StartGame() {
+        Debug.Log("Players Number "+ playersNumber);
+        ScoresUI.instance.ResetScore();
         var bowlingScore = new BowlingScoreCalculator(playersNumber, totalFrames);
         ScoresUI.instance.SetNumberOfPlayers(playersNumber);
         

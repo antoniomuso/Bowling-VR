@@ -216,9 +216,11 @@ public static ScoresUI instance => _instance;
     {
         if (numberOfPlayers > Players.Length || numberOfPlayers <= 0) throw new Exception("Max number of players is " + Players.Length);
 
-        for (int i = numberOfPlayers; i < Players.Length; i++) {
-            Players[i].SetActive(false);
+        for (int i = 0; i < Players.Length; i++) {
+            if (i < numberOfPlayers) Players[i].SetActive(true);
+            else Players[i].SetActive(false);
         }
+
     }
 
     /**
