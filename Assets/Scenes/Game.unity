@@ -32857,6 +32857,7 @@ MonoBehaviour:
   frameManager: {fileID: 1961144295}
   playersNumber: 1
   totalFrames: 10
+  myName: Franco30Lance
 --- !u!4 &1899285866
 Transform:
   m_ObjectHideFlags: 0

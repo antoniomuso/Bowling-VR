@@ -62,6 +62,9 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
     }
 
     public override void OnPlayerEnteredRoom (Player newPlayer) {
+        if (PhotonNetwork.IsMasterClient) ScoresUI.instance.SetName(0, newPlayer.NickName);
+        else ScoresUI.instance.SetName(1, newPlayer.NickName);
+        
         gameManager.playersNumber = PhotonNetwork.PlayerList.Length;
         gameManager.StartGame();
     }
@@ -69,6 +72,7 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
     public override void OnPlayerLeftRoom(Player otherPlayer) {
         gameManager.playersNumber = PhotonNetwork.PlayerList.Length;
         gameManager.StartGame();
+        
     }
 
     public override void OnJoinedRoom() {
@@ -88,6 +92,12 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
         leftHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
 
         OnPlayerEnteredRoom(PhotonNetwork.LocalPlayer);
+
+        PhotonNetwork.NickName = gameManager.myName;
+
+        if (PhotonNetwork.IsMasterClient) ScoresUI.instance.SetName(0, gameManager.myName);
+        else ScoresUI.instance.SetName(1, gameManager.myName);
+        
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message) {

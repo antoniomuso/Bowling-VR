@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
     public int playersNumber;
     public int totalFrames;
 
-
+    public string myName;
 
     public async void StartGame() {
         Debug.Log("Players Number "+ playersNumber);
