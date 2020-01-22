@@ -34,6 +34,8 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
         Debug.Log("We are now connected to the " + PhotonNetwork.CloudRegion + " server!");
         //PhotonNetwork.JoinRoom("test");
 
+        PhotonNetwork.NickName = gameManager.myName;
+
         RoomOptions options = new RoomOptions();
         PhotonNetwork.JoinOrCreateRoom("test", options, TypedLobby.Default);
     }
@@ -62,14 +64,8 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
     }
 
     public override void OnPlayerEnteredRoom (Player newPlayer) {
-        if (PhotonNetwork.IsMasterClient) {
-            ScoresUI.instance.SetName(1, newPlayer.NickName);
-            ScoresUI.instance.SetName(0, gameManager.myName);
-        }
-        else {
-            ScoresUI.instance.SetName(0, newPlayer.NickName);
-            ScoresUI.instance.SetName(1, gameManager.myName);
-        }
+        ScoresUI.instance.SetName(0, PhotonNetwork.PlayerList[0].NickName);
+        ScoresUI.instance.SetName(1, PhotonNetwork.PlayerList[1].NickName);
 
         gameManager.playersNumber = PhotonNetwork.PlayerList.Length;
         gameManager.StartGame();
@@ -96,7 +92,6 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
 
         rightHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
         leftHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
-        PhotonNetwork.NickName = gameManager.myName;
 
         OnPlayerEnteredRoom(PhotonNetwork.LocalPlayer);
     }
