@@ -72,6 +72,8 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer) {
+        ScoresUI.instance.SetName(0, gameManager.myName);
+
         gameManager.playersNumber = PhotonNetwork.PlayerList.Length;
         gameManager.StartGame();
         
