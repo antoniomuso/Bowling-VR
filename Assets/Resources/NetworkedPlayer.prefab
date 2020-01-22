@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6544412186385544536}
   - component: {fileID: 5940774174343709498}
   - component: {fileID: 7418199822256353473}
+  - component: {fileID: -9169396171252214172}
   m_Layer: 0
   m_Name: NetworkedPlayer
   m_TagString: Untagged
@@ -52,7 +53,7 @@ MonoBehaviour:
   Synchronization: 1
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 7418199822256353473}
+  - {fileID: -9169396171252214172}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -69,10 +70,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatar: {fileID: 3129204026232033886}
-  hand: {fileID: 5107967410037167247}
+  rightHand: {fileID: 8266344775190551849, guid: 4dffff6328dd2af4a92fe5804e278979,
+    type: 3}
+  leftHand: {fileID: 306068750552846888, guid: 39fe99a3b1666e14ea9bfacee106957e, type: 3}
   playerGlobal: {fileID: 0}
   playerLocalHead: {fileID: 0}
-  playerLocalHand: {fileID: 0}
+  playerLocalRightHand: {fileID: 0}
+  playerLocalLeftHand: {fileID: 0}
+--- !u!114 &-9169396171252214172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580311732991667531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
 --- !u!1 &3129204026232033886
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,12 +254,6 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6def53d002137b747aec0b29551e0e25, type: 3}
---- !u!1 &5107967410037167247 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25,
-    type: 3}
-  m_PrefabInstance: {fileID: 5107267566675024549}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5111195489769237535 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000012125075130, guid: 6def53d002137b747aec0b29551e0e25,

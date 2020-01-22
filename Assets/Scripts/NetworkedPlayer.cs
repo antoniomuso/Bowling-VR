@@ -5,14 +5,16 @@ using Photon.Pun;
 using Photon.Realtime;
 
 // For use with Photon and SteamVR
-public class NetworkedPlayer : MonoBehaviourPunCallbacks, IPunObservable
+public class NetworkedPlayer : MonoBehaviourPunCallbacks//, IPunObservable
 {
     public GameObject avatar;
-    public GameObject hand;
+    public GameObject rightHand;
+    public GameObject leftHand;
 
     public Transform playerGlobal;
     public Transform playerLocalHead;
-    public Transform playerLocalHand;
+    public Transform playerLocalRightHand;
+    public Transform playerLocalLeftHand;
 
     void Start()
     {
@@ -23,18 +25,22 @@ public class NetworkedPlayer : MonoBehaviourPunCallbacks, IPunObservable
             Debug.Log("Player is mine");
 
             playerGlobal = GameObject.Find("Player").transform;
-            playerLocalHead = playerGlobal.Find("NoSteamVRFallbackObjects/FallbackObjects");
-            playerLocalHand = playerGlobal.Find("NoSteamVRFallbackObjects/FallbackHand");
+            //playerLocalHead = playerGlobal.Find("NoSteamVRFallbackObjects/FallbackObjects");
 
-            this.transform.SetParent(playerLocalHead);
-            hand.transform.SetParent(playerLocalHand);
+            playerLocalRightHand = playerGlobal.Find("SteamVRObjects/RightHand");
+            playerLocalLeftHand = playerGlobal.Find("SteamVRObjects/LeftHand");
+
+            //this.transform.SetParent(playerLocalHead);
+
+            rightHand.transform.SetParent(playerLocalRightHand);
+            leftHand.transform.SetParent(playerLocalLeftHand);
             
 
-            this.transform.localPosition = Vector3.zero;
-            hand.transform.localPosition = Vector3.zero;
+            //this.transform.localPosition = Vector3.zero;
+            //hand.transform.localPosition = Vector3.zero;
         }
     }
-
+/*
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -56,6 +62,5 @@ public class NetworkedPlayer : MonoBehaviourPunCallbacks, IPunObservable
             hand.transform.localRotation = (Quaternion)stream.ReceiveNext();
         }
     }
-
-    
+*/
 }
