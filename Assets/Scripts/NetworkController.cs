@@ -59,7 +59,7 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
     }
     public override void OnJoinedRoom() {
         Debug.Log("cREAZIONE");
-        PhotonNetwork.Instantiate("Player", new Vector3(-5.63f, 0.209f, 7.556f), Quaternion.identity);
+        PhotonNetwork.Instantiate("NetworkedPlayer", new Vector3(-5.63f, 0.209f, 7.556f), Quaternion.identity);
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message) {
