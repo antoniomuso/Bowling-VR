@@ -96,10 +96,9 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
 
         rightHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
         leftHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
+        PhotonNetwork.NickName = gameManager.myName;
 
         OnPlayerEnteredRoom(PhotonNetwork.LocalPlayer);
-
-        PhotonNetwork.NickName = gameManager.myName; 
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message) {
