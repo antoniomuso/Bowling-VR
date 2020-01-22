@@ -59,6 +59,18 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
             }
         }
     }
+
+    public void InitializeHand(GameObject handInstance) {
+        handInstance.transform.parent = this.transform;
+        handInstance.transform.localPosition = Vector3.zero;
+        handInstance.transform.localRotation = Quaternion.identity;
+        //handInstance.transform.localScale = handPrefab.transform.localScale;
+        //handSkeleton = handInstance.GetComponent<SteamVR_Behaviour_Skeleton>();
+        //handSkeleton.origin = Player.instance.trackingOriginTransform;
+        //handSkeleton.updatePose = false;
+        //handSkeleton.skeletonAction.onActiveChange += OnSkeletonActiveChange;
+    }
+
     public override void OnJoinedRoom() {
         Debug.Log("cREAZIONE");
         //PhotonNetwork.Instantiate("NetworkedPlayer", new Vector3(-5.63f, 0.209f, 7.556f), Quaternion.identity);
@@ -66,16 +78,16 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
         GameObject refRightHand = GameObject.Find("RightHand");
         GameObject refLeftHand = GameObject.Find("LeftHand");
 
-        GameObject rightHand = PhotonNetwork.Instantiate("RightRenderModel Slim", refRightHand.transform.position, refRightHand.transform.rotation);
-        GameObject leftHand = PhotonNetwork.Instantiate("LeftRenderModel Slim", refLeftHand.transform.position, refLeftHand.transform.rotation);
+        GameObject rightHand = PhotonNetwork.Instantiate("vr_glove_right_model_slim", refRightHand.transform.position, refRightHand.transform.rotation);
+        GameObject leftHand = PhotonNetwork.Instantiate("vr_glove_left_model_slim", refLeftHand.transform.position, refLeftHand.transform.rotation);
 
         rightHand.transform.SetParent(refRightHand.transform);
         leftHand.transform.SetParent(refLeftHand.transform);
 
         //refRightHand.//GetComponent<Hand>().renderModelPrefab = rightHand;
         //refLeftHand.gameObject.GetComponent<Hand>().renderModelPrefab = leftHand;
-        rightHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
-        leftHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
+        //rightHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
+        //leftHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
         
     }
 
