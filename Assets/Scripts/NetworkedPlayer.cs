@@ -35,7 +35,6 @@ public class NetworkedPlayer : MonoBehaviourPunCallbacks//, IPunObservable
             rightHand.transform.SetParent(playerLocalRightHand);
             leftHand.transform.SetParent(playerLocalLeftHand);
             
-
             //this.transform.localPosition = Vector3.zero;
             //hand.transform.localPosition = Vector3.zero;
         }

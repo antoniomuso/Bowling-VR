@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using IgnoreHovering = Valve.VR.InteractionSystem.IgnoreHovering;
+using Hand = Valve.VR.InteractionSystem.Hand;
 
 public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
 {
@@ -60,6 +61,15 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
     public override void OnJoinedRoom() {
         Debug.Log("cREAZIONE");
         //PhotonNetwork.Instantiate("NetworkedPlayer", new Vector3(-5.63f, 0.209f, 7.556f), Quaternion.identity);
+
+        GameObject rightHand = PhotonNetwork.Instantiate("RightRenderModel Slim", Vector3.zero, Quaternion.identity);
+        GameObject leftHand = PhotonNetwork.Instantiate("LeftRenderModel Slim", Vector3.zero, Quaternion.identity);
+
+        GameObject refRightHand = GameObject.Find("RightHand");
+        GameObject refLeftHand = GameObject.Find("LeftHand");
+
+        refRightHand.gameObject.GetComponent<Hand>().renderModelPrefab = rightHand;
+        refLeftHand.gameObject.GetComponent<Hand>().renderModelPrefab = leftHand;
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message) {
