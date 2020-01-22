@@ -6611,7 +6611,7 @@ MonoBehaviour:
   noSteamVRFallbackCamera: {fileID: 0}
   noSteamVRFallbackMaxDistanceNoItem: 10
   noSteamVRFallbackMaxDistanceWithItem: 0.5
-  renderModelPrefab: {fileID: 1000012617731570, guid: 2becad875dc6c5445aed136cfef71475,
+  renderModelPrefab: {fileID: 1000012617731570, guid: 837f93beb9a614743ae3a2c0ada7c388,
     type: 3}
   renderModels: []
   mainRenderModel: {fileID: 0}
@@ -8388,6 +8388,16 @@ PrefabInstance:
       propertyPath: viewIdField
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 9107842309803566283, guid: 7320e060baef1f6f9bf5d7cfb0a21460,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9107842309803615317, guid: 7320e060baef1f6f9bf5d7cfb0a21460,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9107842309813335721, guid: 7320e060baef1f6f9bf5d7cfb0a21460,
         type: 3}
       propertyPath: m_Name
@@ -8725,7 +8735,7 @@ MonoBehaviour:
   noSteamVRFallbackCamera: {fileID: 0}
   noSteamVRFallbackMaxDistanceNoItem: 10
   noSteamVRFallbackMaxDistanceWithItem: 0.5
-  renderModelPrefab: {fileID: 1000011547835092, guid: 1d80069f6268bd04ea562d075e483d8c,
+  renderModelPrefab: {fileID: 1000011547835092, guid: d5082f7d9f947374197e0a97786f4e40,
     type: 3}
   renderModels: []
   mainRenderModel: {fileID: 0}
@@ -13453,9 +13463,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e3e4511966ba94d8ba0b98c6c62f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherHand: {fileID: 470365183}
+  otherHand: {fileID: 754001585}
   handType: 0
-  trackedObject: {fileID: 470365182}
+  trackedObject: {fileID: 0}
   grabPinchAction:
     actionPath: /actions/default/in/GrabPinch
     needsReinit: 0
