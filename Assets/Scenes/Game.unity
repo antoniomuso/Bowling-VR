@@ -33951,7 +33951,7 @@ MonoBehaviour:
   frameManager: {fileID: 1961144295}
   playersNumber: 1
   totalFrames: 10
-  myName: CarloMasi
+  myName: Gianni Mucciaccia
 --- !u!4 &1899285866
 Transform:
   m_ObjectHideFlags: 0
@@ -36756,6 +36756,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269968728502182209, guid: d2a67f7c9dbceb24bb7be99c07714d26,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4448905391702755912, guid: d2a67f7c9dbceb24bb7be99c07714d26,
         type: 3}

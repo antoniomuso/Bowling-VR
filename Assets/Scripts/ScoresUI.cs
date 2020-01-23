@@ -159,6 +159,9 @@ public static ScoresUI instance => _instance;
      * */
     public void ResetScore ()
     {
+        for (int f = 0 ; f< totFrames; f++)
+            SwitchOffFrame(f);
+
         currentFrame = 0;
 
         //loop to reset all the frame scores
