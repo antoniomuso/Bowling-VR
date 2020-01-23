@@ -24,6 +24,9 @@ public class ScoresUI : MonoBehaviour
     //the display names of the players
     public Text[] DisplayName;
 
+    //the background image of the players name
+    public Image[] BackgroundPlayers;
+
     //the text of the total scores of the players
     public Text[] TotScore; 
     private int currentFrame;   //indicates the current frame selected in the head
@@ -233,6 +236,16 @@ public static ScoresUI instance => _instance;
     public void SetName(int indexDisplayName, string playerName)
     {
         DisplayName[indexDisplayName].text = playerName;
+    }
+
+    public void SwitchOffDisplayName(int indexDisplayName)
+    {
+        BackgroundPlayers[indexDisplayName].color = c_OffBackFrame;
+    }
+
+    public void SwitchOnDisplayName(int indexDisplayName)
+    {
+        BackgroundPlayers[indexDisplayName].color = c_OnBackFrame;
     }
 
     /*

@@ -17411,6 +17411,18 @@ Transform:
   m_Father: {fileID: 1610216566}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &964293167 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 766761940190786695, guid: d2a67f7c9dbceb24bb7be99c07714d26,
+    type: 3}
+  m_PrefabInstance: {fileID: 1964718025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &967750415
 GameObject:
   m_ObjectHideFlags: 0
@@ -33010,6 +33022,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853251843}
   m_Mesh: {fileID: 4300000, guid: 1bae3b5f6179d384686a497e45c442ee, type: 2}
+--- !u!114 &1856406365 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5637582979151117237, guid: d2a67f7c9dbceb24bb7be99c07714d26,
+    type: 3}
+  m_PrefabInstance: {fileID: 1964718025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1859535894
 GameObject:
   m_ObjectHideFlags: 0
@@ -35532,6 +35556,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1529628380, guid: d2a67f7c9dbceb24bb7be99c07714d26, type: 3}
+      propertyPath: BackgroundPlayers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1529628380, guid: d2a67f7c9dbceb24bb7be99c07714d26, type: 3}
+      propertyPath: BackgroundPlayers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1856406365}
+    - target: {fileID: 1529628380, guid: d2a67f7c9dbceb24bb7be99c07714d26, type: 3}
+      propertyPath: BackgroundPlayers.Array.data[1]
+      value: 
+      objectReference: {fileID: 964293167}
     - target: {fileID: 170111339611733551, guid: d2a67f7c9dbceb24bb7be99c07714d26,
         type: 3}
       propertyPath: m_AnchorMin.y

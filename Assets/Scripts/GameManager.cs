@@ -29,7 +29,11 @@ public class GameManager : MonoBehaviour {
             for (int p = 0; p < playersNumber; p++)
             {
                 Debug.Log("Player: " + p);
-
+                if(playersNumber == 2)
+                {
+                    ScoresUI.instance.SwitchOffDisplayName((p+1)%playersNumber);
+                    ScoresUI.instance.SwitchOnDisplayName(p);
+                }
                 List<int> score = await frameManager.GetComponent<FrameManager>().RunFrame(f == (totalFrames - 1), p, f);
                 //aspetto il punteggio del frame...
 
