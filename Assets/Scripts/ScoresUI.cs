@@ -200,6 +200,7 @@ public static ScoresUI instance => _instance;
             throw new Exception();
         }
 
+        if (score == "0") score = "-";
         this.score[indexPlayer][IndexFrame][partOfFrame].text = score;
     }
 

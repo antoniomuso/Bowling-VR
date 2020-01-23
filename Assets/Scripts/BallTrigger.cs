@@ -7,7 +7,6 @@ public class BallTrigger : MonoBehaviour
     public GameObject ball;
     public GameObject pinController;
     public GameObject pulisciPista;
-    public Controller ControllerManager;
     public int waiterSeconds = 2;
     private AudioSource audio;
 
@@ -72,7 +71,6 @@ public class BallTrigger : MonoBehaviour
     }
 
     public void resetBall() {
-        ControllerManager.launched = true;
         ball.GetComponent<ConstantForce>().enabled = false;
         ball.GetComponent<Rigidbody>().useGravity = false;
         ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
