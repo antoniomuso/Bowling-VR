@@ -4,7 +4,6 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using IgnoreHovering = Valve.VR.InteractionSystem.IgnoreHovering;
-using Hand = Valve.VR.InteractionSystem.Hand;
 using RenderModel = Valve.VR.InteractionSystem.RenderModel;
 
 public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
@@ -73,7 +72,9 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer) {
-        ScoresUI.instance.SetName(0, gameManager.myName);
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++) {
+            ScoresUI.instance.SetName(i, PhotonNetwork.PlayerList[i].NickName);
+        }
 
         gameManager.playersNumber = PhotonNetwork.PlayerList.Length;
         gameManager.StartGame();
@@ -87,14 +88,16 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
         GameObject refRightHand = GameObject.Find("RightHand");
         GameObject refLeftHand = GameObject.Find("LeftHand");
 
-        GameObject rightHand = PhotonNetwork.Instantiate("RightRenderModel Slim", refRightHand.transform.position, refRightHand.transform.rotation);
-        GameObject leftHand = PhotonNetwork.Instantiate("LeftRenderModel Slim", refLeftHand.transform.position, refLeftHand.transform.rotation);
+        if (refRightHand != null) {
+            GameObject rightHand = PhotonNetwork.Instantiate("RightRenderModel Slim", refRightHand.transform.position, refRightHand.transform.rotation);
+            GameObject leftHand = PhotonNetwork.Instantiate("LeftRenderModel Slim", refLeftHand.transform.position, refLeftHand.transform.rotation);
 
-        rightHand.transform.SetParent(refRightHand.transform);
-        leftHand.transform.SetParent(refLeftHand.transform);
+            rightHand.transform.SetParent(refRightHand.transform);
+            leftHand.transform.SetParent(refLeftHand.transform);
 
-        rightHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
-        leftHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
+            rightHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
+            leftHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
+        }
 
         OnPlayerEnteredRoom(PhotonNetwork.LocalPlayer);
     }

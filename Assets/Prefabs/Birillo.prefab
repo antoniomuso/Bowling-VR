@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1394234771156012552}
   - component: {fileID: 5144842047934474426}
   - component: {fileID: -7060265466442451242}
+  - component: {fileID: -6763292797008168892}
   m_Layer: 0
   m_Name: Birillo
   m_TagString: Untagged
@@ -203,3 +204,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-6763292797008168892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925873320126184956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50341eb1bdf2648eaaef64998160c611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballOwner: 0
+  destroyComponent: 0

@@ -36,5 +36,6 @@ MonoBehaviour:
   - RespawnSpaceship
   - EnableHovering
   - DisableHovering
+  - DisablePhysicsAndAnimation
   DisableAutoOpenWizard: 1
   ShowSettings: 1
