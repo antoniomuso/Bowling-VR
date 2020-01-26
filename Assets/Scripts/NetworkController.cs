@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using IgnoreHovering = Valve.VR.InteractionSystem.IgnoreHovering;
 using RenderModel = Valve.VR.InteractionSystem.RenderModel;
+using SteamVRBehaviourSkeleton = Valve.VR.SteamVR_Behaviour_Skeleton;
 
 public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
 {
@@ -94,6 +95,9 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
 
             rightHand.transform.SetParent(refRightHand.transform);
             leftHand.transform.SetParent(refLeftHand.transform);
+
+            rightHand.gameObject.GetComponentInChildren<SteamVRBehaviourSkeleton>().enabled = true;
+            leftHand.gameObject.GetComponentInChildren<SteamVRBehaviourSkeleton>().enabled = true;
 
             rightHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
             leftHand.gameObject.GetComponent<RenderModel>().SetHandVisibility(false);
