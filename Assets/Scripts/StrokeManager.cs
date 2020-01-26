@@ -46,12 +46,22 @@ public class StrokeManager : MonoBehaviour
         //ANIMAZIONE CHE ABBASSA I BIRILLI
     }
 
+    IEnumerator WaitAndRespawn(Collider other)
+    {
+        yield return new WaitForSeconds(5);
+        other.GetComponent<State>().resetObject();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Ball" && !isConsecutiveCall) {
-            isConsecutiveCall = true;
-            this.ball = other.gameObject;
-            StartCoroutine(waiter());
+        if (other.gameObject.tag == "Ball") {
+            if (!isConsecutiveCall) {
+                isConsecutiveCall = true;
+                this.ball = other.gameObject;
+                StartCoroutine(waiter());
+            } else {
+                StartCoroutine("WaitAndRespawn", other);
+            }
         }
     }
 
