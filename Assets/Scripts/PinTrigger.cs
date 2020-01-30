@@ -28,14 +28,15 @@ public class PinTrigger : MonoBehaviour
                     pin.GetComponent<Rigidbody>().isKinematic = false;
                     pin.GetComponent<Animation>().enabled = true;
 
-                    pin.GetComponent<PhotonView>().RPC("DisablePhysicsAndAnimation", RpcTarget.Others);
+                    //pin.GetComponent<PhotonView>().RPC("DisablePhysicsAndAnimation", RpcTarget.Others);
                 }
             }
-            //else {
-            //    foreach (GameObject pin in pins.pins) {
-            //        pin.GetComponent<Rigidbody>().isKinematic = true;
-            //        pin.GetComponent<Animation>().enabled = false;
-            //    
+            else {
+                foreach (GameObject pin in pins.pins) {
+                    pin.GetComponent<Rigidbody>().isKinematic = true;
+                    pin.GetComponent<Animation>().enabled = false;
+                }
+            }
         }
     }
 }
