@@ -37,9 +37,11 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
         PhotonNetwork.NickName = gameManager.myName;
 
         RoomOptions options = new RoomOptions();
-        PhotonNetwork.JoinOrCreateRoom("test", options, TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom("test_sounds", options, TypedLobby.Default);
+
+        //PhotonNetwork.JoinOrCreateRoom("test", options, TypedLobby.Default);
     }
-    
+
     public void OnOwnershipRequest(PhotonView view, Player reqPlayer) {
         Debug.Log("OnOwnershipRequest(): Player " + reqPlayer + " requests ownership of: " + view + ".");
 
