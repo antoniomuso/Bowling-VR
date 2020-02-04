@@ -21,28 +21,11 @@ public class BallSound : MonoBehaviour
 
     }
 
-
     void OnCollisionEnter(Collision collision)
     {
-
         if (collision.gameObject.Equals(floor))
         {
-            //ball_audio[0].volume = Mathf.Clamp01(rb.velocity.magnitude; /// 20); //più o meno velocità massima?
-            if (rb.velocity.magnitude > 1.0)
-            {
-                Debug.Log(rb.velocity.magnitude);
-                //ball_audio[0].volume = Mathf.Clamp01(rb.velocity.magnitude); /// 20); //più o meno velocità massima?
-                ball_audio[1].Play();
-                while (ball_audio[1].isPlaying) { }
-                ball_audio[0].Play();
-            }
-            else
-            {
-                //ball_audio[1].volume = Mathf.Clamp01(collision.relativeVelocity.magnitude);
-                ball_audio[1].Play();
-            }
-                
-            
+            ball_audio[1].Play();
         }
         if ((collision.gameObject.tag == "Ball") && rb.velocity.magnitude > 0.1)
         {
@@ -55,9 +38,15 @@ public class BallSound : MonoBehaviour
     {
         if (collision.gameObject.Equals(floor))
         {
-            if (rb.velocity.magnitude == 0 && ball_audio[0].isPlaying)
+            if (rb.velocity.magnitude > 0.1 && !ball_audio[1].isPlaying && !ball_audio[0].isPlaying)
+            {
+                ball_audio[0].Play();
+            }
+
+            if (rb.velocity.magnitude < 0.1 && ball_audio[0].isPlaying)
+            {
                 ball_audio[0].Stop();
-          
+            }
         }
     }
 
@@ -65,9 +54,7 @@ public class BallSound : MonoBehaviour
     {
         if (collision.gameObject.Equals(floor))
         {
-            if (ball_audio[0].isPlaying)
-                ball_audio[0].Stop();
-
+            if (ball_audio[0].isPlaying) ball_audio[0].Stop();
         }
     }
 }
