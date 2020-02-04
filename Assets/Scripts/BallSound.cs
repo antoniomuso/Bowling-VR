@@ -3,11 +3,8 @@ using System;
 
 public class BallSound : MonoBehaviour
 {
-    public GameObject ball;
-    public GameObject ball_1;
-    public GameObject ball_2;
     public GameObject floor;
-    public GameObject[] pins;
+    public GameObject pin;
     private AudioSource[] ball_audio;
     private AudioSource pin_audio;
     private Rigidbody rb;
@@ -15,9 +12,9 @@ public class BallSound : MonoBehaviour
 
     void Start()
     {
-        ball_audio = ball.GetComponents<AudioSource>();
-        pin_audio = pins[0].GetComponent<AudioSource>();
-        rb = ball.GetComponent<Rigidbody>();
+        ball_audio = this.GetComponents<AudioSource>();
+        pin_audio = pin.GetComponent<AudioSource>();
+        rb = this.GetComponent<Rigidbody>();
     }
 
 
@@ -31,7 +28,7 @@ public class BallSound : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
 
-        if (Array.Exists(pins, element => element == collision.gameObject))
+        if (collision.gameObject.tag == "Pin")
         {
             //pin_audio.volume = Mathf.Clamp01(collision.relativeVelocity.magnitude);
             pin_audio.Play();
@@ -44,6 +41,8 @@ public class BallSound : MonoBehaviour
             {
                 Debug.Log(rb.velocity.magnitude);
                 //ball_audio[0].volume = Mathf.Clamp01(rb.velocity.magnitude); /// 20); //più o meno velocità massima?
+                ball_audio[1].Play();
+                while (ball_audio[1].isPlaying) { }
                 ball_audio[0].Play();
             }
             else
@@ -54,10 +53,21 @@ public class BallSound : MonoBehaviour
                 
             
         }
-        if ((collision.gameObject.Equals(ball_1) || collision.gameObject.Equals(ball_2)) && rb.velocity.magnitude > 0.1)
+        if ((collision.gameObject.tag == "Ball") && rb.velocity.magnitude > 0.1)
         {
             Debug.Log(rb.velocity.magnitude);
             ball_audio[2].Play();
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.Equals(floor))
+        {
+            if (rb.velocity.magnitude == 0)
+            {
+                ball_audio[0].Stop();
+            }
         }
     }
 }

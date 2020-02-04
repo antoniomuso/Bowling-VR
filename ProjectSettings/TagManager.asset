@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ball
   - RemoteHand
+  - Pin
   layers:
   - Default
   - TransparentFX
