@@ -7,16 +7,12 @@ public class PulisciPistaController : MonoBehaviour
 {
     private Animator anim;
     private Callback cb;
-    private AudioSource source;
-    public GameObject pin;
 
     // Start is called before the first frame update
     void Start(){
         anim = GetComponent<Animator> (); 
         this.cb = () => {};
         //this.GetComponent<Renderer>().enabled = false;
-
-        source = pin.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,14 +34,6 @@ public class PulisciPistaController : MonoBehaviour
         if (message.Equals("AnimEnded")) {
             anim.SetBool("isActive", false);
             this.cb();
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Pin")
-        {
-            source.Play();
         }
     }
 

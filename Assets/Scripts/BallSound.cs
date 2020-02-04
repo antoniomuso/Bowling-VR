@@ -4,16 +4,13 @@ using System;
 public class BallSound : MonoBehaviour
 {
     public GameObject floor;
-    public GameObject pin;
     private AudioSource[] ball_audio;
-    private AudioSource pin_audio;
     private Rigidbody rb;
 
 
     void Start()
     {
         ball_audio = this.GetComponents<AudioSource>();
-        pin_audio = pin.GetComponent<AudioSource>();
         rb = this.GetComponent<Rigidbody>();
     }
 
@@ -27,12 +24,6 @@ public class BallSound : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-
-        if (collision.gameObject.tag == "Pin")
-        {
-            //pin_audio.volume = Mathf.Clamp01(collision.relativeVelocity.magnitude);
-            pin_audio.Play();
-        }
 
         if (collision.gameObject.Equals(floor))
         {

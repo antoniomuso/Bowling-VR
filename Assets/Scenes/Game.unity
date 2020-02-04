@@ -5516,6 +5516,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Pin
       objectReference: {fileID: 0}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: floor
+      value: 
+      objectReference: {fileID: 1613287181}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: barra
+      value: 
+      objectReference: {fileID: 1634853984}
     - target: {fileID: 6345424856919573845, guid: 57188973d3a718048ac7c3a5f67b8ba5,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -14357,7 +14367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4676c66db2af30548a8dc67f904fa760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pin: {fileID: 0}
 --- !u!95 &269409729
 Animator:
   serializedVersion: 3
@@ -24744,6 +24753,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Pin
       objectReference: {fileID: 0}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: floor
+      value: 
+      objectReference: {fileID: 1613287181}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: barra
+      value: 
+      objectReference: {fileID: 1634853984}
     - target: {fileID: 6345424856919573845, guid: 57188973d3a718048ac7c3a5f67b8ba5,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -32006,6 +32025,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Pin
       objectReference: {fileID: 0}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: floor
+      value: 
+      objectReference: {fileID: 1613287181}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: barra
+      value: 
+      objectReference: {fileID: 1634853984}
     - target: {fileID: 6345424856919573845, guid: 57188973d3a718048ac7c3a5f67b8ba5,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -48424,6 +48453,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Pin
       objectReference: {fileID: 0}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: floor
+      value: 
+      objectReference: {fileID: 1613287181}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: barra
+      value: 
+      objectReference: {fileID: 1634853984}
     - target: {fileID: 6345424856919573845, guid: 57188973d3a718048ac7c3a5f67b8ba5,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -61997,6 +62036,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Pin
       objectReference: {fileID: 0}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: floor
+      value: 
+      objectReference: {fileID: 1613287181}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: barra
+      value: 
+      objectReference: {fileID: 1634853984}
     - target: {fileID: 6345424856919573845, guid: 57188973d3a718048ac7c3a5f67b8ba5,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -76869,7 +76918,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4676c66db2af30548a8dc67f904fa760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pin: {fileID: 2096537756}
 --- !u!95 &1634853990
 Animator:
   serializedVersion: 3
@@ -78323,7 +78371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4676c66db2af30548a8dc67f904fa760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pin: {fileID: 0}
 --- !u!95 &1657467135
 Animator:
   serializedVersion: 3
@@ -78374,7 +78421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4676c66db2af30548a8dc67f904fa760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pin: {fileID: 0}
 --- !u!64 &1657467138
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -80161,6 +80207,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Pin
       objectReference: {fileID: 0}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: floor
+      value: 
+      objectReference: {fileID: 1613287181}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: barra
+      value: 
+      objectReference: {fileID: 1634853984}
     - target: {fileID: 6345424856919573845, guid: 57188973d3a718048ac7c3a5f67b8ba5,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -81776,6 +81832,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Pin
       objectReference: {fileID: 0}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: floor
+      value: 
+      objectReference: {fileID: 1613287181}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: barra
+      value: 
+      objectReference: {fileID: 1634853984}
     - target: {fileID: 6345424856919573845, guid: 57188973d3a718048ac7c3a5f67b8ba5,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -85130,6 +85196,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Pin
       objectReference: {fileID: 0}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: floor
+      value: 
+      objectReference: {fileID: 1613287181}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: barra
+      value: 
+      objectReference: {fileID: 1634853984}
     - target: {fileID: 6345424856919573845, guid: 57188973d3a718048ac7c3a5f67b8ba5,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -90019,6 +90095,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Pin
       objectReference: {fileID: 0}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: floor
+      value: 
+      objectReference: {fileID: 1613287181}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: barra
+      value: 
+      objectReference: {fileID: 1634853984}
     - target: {fileID: 6345424856919573845, guid: 57188973d3a718048ac7c3a5f67b8ba5,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -103727,6 +103813,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Pin
       objectReference: {fileID: 0}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: floor
+      value: 
+      objectReference: {fileID: 1613287181}
+    - target: {fileID: 4964268266218819860, guid: 57188973d3a718048ac7c3a5f67b8ba5,
+        type: 3}
+      propertyPath: barra
+      value: 
+      objectReference: {fileID: 1634853984}
     - target: {fileID: 6345424856919573845, guid: 57188973d3a718048ac7c3a5f67b8ba5,
         type: 3}
       propertyPath: ObservedComponents.Array.size
