@@ -61,15 +61,6 @@ public class TransferOwnership : MonoBehaviour
     }
 
     public void ReleaseOwnership() {
-        //this.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.MasterClient);
         this.GetComponent<PhotonView>().RPC("EnableHovering", RpcTarget.All);
-    }
-
-
-
-    [PunRPC]
-    private void DisablePhysicsAndAnimation() {
-        this.GetComponent<Rigidbody>().isKinematic = true;
-        this.GetComponent<Animation>().enabled = false;
     }
 }

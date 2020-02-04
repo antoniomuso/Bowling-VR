@@ -9,6 +9,7 @@ public class ScoresUI : MonoBehaviour
     //name of the players
     public string PlayerName1;
     public string PlayerName2;
+
     //reference of the Players scores
     public GameObject[] Players;
 
@@ -30,13 +31,14 @@ public class ScoresUI : MonoBehaviour
     //the text of the total scores of the players
     public Text[] TotScore; 
     private int currentFrame;   //indicates the current frame selected in the head
-    private int totFrames;  //total number of the frames
+    private int totFrames;      //total number of the frames
     public Dictionary<int, Dictionary<int, Text[]>> score;
 
-    // Start is called before the first frame update
-#region Singleton
-private static ScoresUI _instance;
-public static ScoresUI instance => _instance;
+    #region Singleton
+
+    private static ScoresUI _instance;
+    public static ScoresUI instance => _instance;
+
     private void Awake()
     {
         SetFrameColors();
@@ -47,17 +49,14 @@ public static ScoresUI instance => _instance;
         }
     }
 
-#endregion
+    #endregion
 
-
+    // Start is called before the first frame update
     void Start()
     {
         InitializeScore();
         SwitchOnFrame(currentFrame);
         ResetScore();
-        //SetNumberOfPlayers(1);
-        //SetName(0, PlayerName1);
-        //SetName(1, PlayerName2);
     }
     
     public void SwitchOnFrame(int indexFrame)
@@ -148,6 +147,7 @@ public static ScoresUI instance => _instance;
             score[p] = new Dictionary<int, Text[]>();
             Image[] frames = GetFrames(Players[p]);
             totFrames = frames.Length;
+
             //for each frame, retrieve the references of Text Throws and PartialScore
             for (int f=0; f < totFrames; f++)
             {
@@ -255,8 +255,4 @@ public static ScoresUI instance => _instance;
     {
         TotScore[indexPlayer].text = totScore;
     }
-
-
-
-
 }

@@ -27,8 +27,6 @@ public class PinTrigger : MonoBehaviour
                     pin.GetComponent<PhotonView>().RequestOwnership();
                     pin.GetComponent<Rigidbody>().isKinematic = false;
                     pin.GetComponent<Animation>().enabled = true;
-
-                    //pin.GetComponent<PhotonView>().RPC("DisablePhysicsAndAnimation", RpcTarget.Others);
                 }
             }
             else {

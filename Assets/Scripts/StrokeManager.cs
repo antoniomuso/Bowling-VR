@@ -14,12 +14,15 @@ public class StrokeManager : MonoBehaviour
     private bool isConsecutiveCall = false;
 
     // Start is called before the first frame update
-    void Start() {
+    void Start()
+    {
 
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
+
     }
 
     private IEnumerator waiter()
@@ -29,21 +32,17 @@ public class StrokeManager : MonoBehaviour
         int points = pinController.GetComponent<PinController>().GetPoints();
         Debug.Log("Punti Punti: " + points);
 
-        //ANIMAZIONE CHE ALZA I BIRILLI
-
         //attiva pulisci pista
-        if (!cleanAll) {
+        if (!cleanAll)
             pinController.GetComponent<PinController>().upliftNotFallenPins();
-        }
 
-        pulisciPista.GetComponent<PulisciPistaController>().attiva(() => {
+        pulisciPista.GetComponent<PulisciPistaController>().attiva(() =>
+        {
             Debug.Log("Chiamata alla callback");
             resetBall();
 
             cb(points);
         });
-
-        //ANIMAZIONE CHE ABBASSA I BIRILLI
     }
 
     IEnumerator WaitAndRespawn(Collider other)
@@ -54,18 +53,19 @@ public class StrokeManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Ball") {
-            if (!isConsecutiveCall) {
+        if (other.gameObject.tag == "Ball")
+        {
+            if (!isConsecutiveCall)
+            {
                 isConsecutiveCall = true;
                 this.ball = other.gameObject;
                 StartCoroutine(waiter());
-            } else {
-                StartCoroutine("WaitAndRespawn", other);
-            }
+            } else StartCoroutine("WaitAndRespawn", other);
         }
     }
 
-    public GameObject getBall() {
+    public GameObject getBall()
+    {
         return this.ball;
     }
 
@@ -74,17 +74,17 @@ public class StrokeManager : MonoBehaviour
         getBall().GetComponent<State>().resetObject();
     }
 
-    public Task<int> StartThrow(bool reset, bool cleanAll) { 
+    public Task<int> StartThrow(bool reset, bool cleanAll)
+    {
         TaskCompletionSource<int> task = new TaskCompletionSource<int>();
-        this.cb = (int score) => task.TrySetResult(score); 
+        this.cb = (int score) => task.TrySetResult(score);
         this.cleanAll = cleanAll;
 
-
         //SETUP DEL TIRO
-        if (reset){
-            // Debug.Log("RESET BIRILLI !!");
+        if (reset)
+        {
+            //Debug.Log("RESET BIRILLI");
             pinController.GetComponent<PinController>().resetPositions();
-            
         }
 
         return task.Task;
