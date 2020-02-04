@@ -55,10 +55,19 @@ public class BallSound : MonoBehaviour
     {
         if (collision.gameObject.Equals(floor))
         {
-            if (rb.velocity.magnitude == 0)
-            {
+            if (rb.velocity.magnitude == 0 && ball_audio[0].isPlaying)
                 ball_audio[0].Stop();
-            }
+          
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.Equals(floor))
+        {
+            if (ball_audio[0].isPlaying)
+                ball_audio[0].Stop();
+
         }
     }
 }
