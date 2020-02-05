@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.7164861, g: 0.5720897, b: 0.43177295, a: 1}
+  m_IndirectSpecularColor: {r: 0.7120379, g: 0.5687179, b: 0.42845994, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -103179,18 +103179,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6254299124583526, guid: 5c1ba5a3736a9a795b8f9b58808c4934, type: 3}
-      propertyPath: m_Volume
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6254299124583526, guid: 5c1ba5a3736a9a795b8f9b58808c4934, type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6254299124583526, guid: 5c1ba5a3736a9a795b8f9b58808c4934, type: 3}
-      propertyPath: Pan2D
-      value: -0.19
-      objectReference: {fileID: 0}
     - target: {fileID: 525384593084346050, guid: 5c1ba5a3736a9a795b8f9b58808c4934,
         type: 3}
       propertyPath: m_Name

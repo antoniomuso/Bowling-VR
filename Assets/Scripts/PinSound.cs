@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class PinSound : MonoBehaviour
@@ -22,6 +21,13 @@ public class PinSound : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Ball" || collision.gameObject.tag == "Pin" || collision.gameObject.Equals(barra))
+        {
+            pin_audio.volume = Mathf.Clamp01(BallSound.fun(collision.relativeVelocity.magnitude));
+            //Debug.Log("Velocity: " + collision.relativeVelocity.magnitude);
+            //Debug.Log("Volume:" + pin_audio.volume);
             pin_audio.Play();
+        }
+            
     }
+
 }
