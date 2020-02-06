@@ -9,6 +9,7 @@ public class ScoresUI : MonoBehaviour
     //name of the players
     public string PlayerName1;
     public string PlayerName2;
+
     //reference of the Players scores
     public GameObject[] Players;
 
@@ -24,16 +25,20 @@ public class ScoresUI : MonoBehaviour
     //the display names of the players
     public Text[] DisplayName;
 
+    //the background image of the players name
+    public Image[] BackgroundPlayers;
+
     //the text of the total scores of the players
     public Text[] TotScore; 
     private int currentFrame;   //indicates the current frame selected in the head
-    private int totFrames;  //total number of the frames
+    private int totFrames;      //total number of the frames
     public Dictionary<int, Dictionary<int, Text[]>> score;
 
-    // Start is called before the first frame update
-#region Singleton
-private static ScoresUI _instance;
-public static ScoresUI instance => _instance;
+    #region Singleton
+
+    private static ScoresUI _instance;
+    public static ScoresUI instance => _instance;
+
     private void Awake()
     {
         SetFrameColors();
@@ -44,17 +49,14 @@ public static ScoresUI instance => _instance;
         }
     }
 
-#endregion
+    #endregion
 
-
+    // Start is called before the first frame update
     void Start()
     {
         InitializeScore();
         SwitchOnFrame(currentFrame);
         ResetScore();
-        //SetNumberOfPlayers(1);
-        //SetName(0, PlayerName1);
-        //SetName(1, PlayerName2);
     }
     
     public void SwitchOnFrame(int indexFrame)
@@ -145,6 +147,7 @@ public static ScoresUI instance => _instance;
             score[p] = new Dictionary<int, Text[]>();
             Image[] frames = GetFrames(Players[p]);
             totFrames = frames.Length;
+
             //for each frame, retrieve the references of Text Throws and PartialScore
             for (int f=0; f < totFrames; f++)
             {
@@ -159,6 +162,9 @@ public static ScoresUI instance => _instance;
      * */
     public void ResetScore ()
     {
+        for (int f = 0 ; f< totFrames; f++)
+            SwitchOffFrame(f);
+
         currentFrame = 0;
 
         //loop to reset all the frame scores
@@ -200,6 +206,7 @@ public static ScoresUI instance => _instance;
             throw new Exception();
         }
 
+        if (score == "0") score = "-";
         this.score[indexPlayer][IndexFrame][partOfFrame].text = score;
     }
 
@@ -216,9 +223,11 @@ public static ScoresUI instance => _instance;
     {
         if (numberOfPlayers > Players.Length || numberOfPlayers <= 0) throw new Exception("Max number of players is " + Players.Length);
 
-        for (int i = numberOfPlayers; i < Players.Length; i++) {
-            Players[i].SetActive(false);
+        for (int i = 0; i < Players.Length; i++) {
+            if (i < numberOfPlayers) Players[i].SetActive(true);
+            else Players[i].SetActive(false);
         }
+
     }
 
     /**
@@ -229,6 +238,16 @@ public static ScoresUI instance => _instance;
         DisplayName[indexDisplayName].text = playerName;
     }
 
+    public void SwitchOffDisplayName(int indexDisplayName)
+    {
+        BackgroundPlayers[indexDisplayName].color = c_OffBackFrame;
+    }
+
+    public void SwitchOnDisplayName(int indexDisplayName)
+    {
+        BackgroundPlayers[indexDisplayName].color = c_OnBackFrame;
+    }
+
     /*
      * Method used to set the tot score of a player
      * */
@@ -236,8 +255,4 @@ public static ScoresUI instance => _instance;
     {
         TotScore[indexPlayer].text = totScore;
     }
-
-
-
-
 }

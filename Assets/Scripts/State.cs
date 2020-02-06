@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,17 +25,20 @@ public class State : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         
     }
 
     public void resetObject() {
-        this.transform.position = startingPos;
-        this.transform.rotation = startingRot;
-        this.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-
-        if (force != 0)
-            this.GetComponent<Rigidbody>().AddForce(0, 0, -force, ForceMode.Impulse);
+        if (this.GetComponent<PhotonView>().IsMine) {
+            this.transform.position = startingPos;
+            this.transform.rotation = startingRot;
+            this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+    
+            if (force != 0)
+                this.GetComponent<Rigidbody>().AddForce(0, 0, -force, ForceMode.Impulse);
+        }
     }
 }
