@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.7120379, g: 0.5687179, b: 0.42845994, a: 1}
+  m_IndirectSpecularColor: {r: 0.7120384, g: 0.56872064, b: 0.42846167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -37539,26 +37539,6 @@ Transform:
   m_Father: {fileID: 1853987094}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &760564361 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6593675599555063650, guid: 5c1ba5a3736a9a795b8f9b58808c4934,
-    type: 3}
-  m_PrefabInstance: {fileID: 2131231327}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &760564367
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760564361}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 79bf7d4381365c0438be7a7272dfc860, type: 2}
 --- !u!1 &761042260
 GameObject:
   m_ObjectHideFlags: 0
@@ -52268,7 +52248,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b13fb49732a30449681778ff63452aaf, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
