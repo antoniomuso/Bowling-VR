@@ -4,6 +4,7 @@ the dynamics and physical context of a real bowling challenge.
 # Images
 ![image1](https://github.com/antoniomuso/Bowling-VR/blob/master/Screenshots/Screenshot%20(23).png)
 ![image2](https://github.com/antoniomuso/Bowling-VR/blob/master/Screenshots/Screenshot%20(4).png)
+![image3](https://github.com/antoniomuso/Bowling-VR/blob/master/Screenshots/Screenshot%20(26).png)
 
 # Models
 - [Bowling Alley](https://sketchfab.com/3d-models/bowling-alley-mozilla-hubs-room-644609db6a5a435098b305413b162266)
