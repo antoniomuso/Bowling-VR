@@ -15,3 +15,6 @@ the dynamics and physical context of a real bowling challenge.
 [Manuel Prandini](https://github.com/ManuelPrandini)
 
 [Francesca Romana Mattei](https://github.com/francescaromana)
+
+# License
+Our code is released under [MIT license](https://github.com/antoniomuso/Bowling-VR/blob/master/LICENSE).
