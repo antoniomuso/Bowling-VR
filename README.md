@@ -1,6 +1,7 @@
 # Bowling-VR
-Bowling-VR is a multiplayer VR game written in [Unity](https://unity.com/) that provides a realistic User eXperience (UX) to the user by reproducing
+Bowling-VR is a multiplayer VR game written in [Unity](https://unity.com/) that provides a realistic User eXperience (UX) by reproducing
 the dynamics and physical context of a real bowling challenge.
+
 # Images
 ![image1](https://github.com/antoniomuso/Bowling-VR/blob/master/Screenshots/Screenshot%20(23).png)
 ![image2](https://github.com/antoniomuso/Bowling-VR/blob/master/Screenshots/Screenshot%20(4).png)
@@ -9,6 +10,7 @@ the dynamics and physical context of a real bowling challenge.
 # Models
 - [Bowling Alley](https://sketchfab.com/3d-models/bowling-alley-mozilla-hubs-room-644609db6a5a435098b305413b162266)
 - [Bowling Balls](https://sketchfab.com/3d-models/bowling-balls-a804776436c24d80823429bc5602d201)
+- [Bowling Pin](https://sketchfab.com/3d-models/bowling-pin-88655efb4b834452a28173e5d1b7763b)
 
 # Authors 
 - [Antonio Musolino](https://github.com/antoniomuso)
@@ -18,5 +20,4 @@ the dynamics and physical context of a real bowling challenge.
 - [Francesca Romana Mattei](https://github.com/francescaromana)
 
 # License
-Our code is released under [MIT license](https://github.com/antoniomuso/Bowling-VR/blob/master/LICENSE).
-
+Our code is released under [MIT license](LICENSE).
