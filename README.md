@@ -19,5 +19,6 @@ the dynamics and physical context of a real bowling challenge.
 - [Manuel Prandini](https://github.com/ManuelPrandini)
 - [Francesca Romana Mattei](https://github.com/francescaromana)
 
+
 # License
 Our code is released under [MIT license](LICENSE).
